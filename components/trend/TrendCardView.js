@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-const ShotMyTasteCardView = ({data}) => (
+const TrendCardView = ({data}) => (
     <View style={styles.CardContainer}>
         <View style={styles.TopBar}>
             <Text style={styles.CardType}>{data.type}</Text>
@@ -88,4 +88,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ShotMyTasteCardView;
+export default TrendCardView;

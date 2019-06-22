@@ -7,8 +7,7 @@ export default function TabBarIcon(props) {
     <Image
       source={props.imageUri}
       size={26}
-      style={{ marginBottom: 0 }}
-      color={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+      style={{ marginBottom: 0, width: 22, height:22, resizeMode:'cover' }}
     />
   );
 }

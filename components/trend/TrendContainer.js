@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Picker, View, ScrollView } from 'react-native';
-import ShotMyTasteCardView from './ShotMyTasteCardView';
+import TrendCardView from './TrendCardView';
 
-export default class ShotMyTasteContainer extends React.Component {
+export default class TrendContainer extends React.Component {
     state = {
         order: 'newer',
         data: [],
@@ -89,7 +89,7 @@ export default class ShotMyTasteContainer extends React.Component {
             </View>
             <View>
                 {this.state.data.map((data, index) => (
-                <ShotMyTasteCardView
+                <TrendCardView
                     data={data}
                     key={index}
                 />

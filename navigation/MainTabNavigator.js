@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform ,StyleSheet} from 'react-native';
 import {
   createStackNavigator,
   createBottomTabNavigator,
@@ -7,7 +7,7 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import FindMeScreen from '../screens/FindMeScreen';
-import ShotMyTasteScreen from '../screens/ShotMyTasteScreen';
+import TrendScreen from '../screens/trend/TrendScreen';
 import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';
 import MyPageScreen from '../screens/MyPageScreen';
@@ -19,25 +19,35 @@ const FindMeStack = createStackNavigator({
 FindMeStack.navigationOptions = {
   tabBarLabel: '파인드미',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      imageUri= {require('../assets/images/icoMenuFindme.png')}
-    />
+    focused ? <TabBarIcon
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuFindme_active.png')}
+              />
+              :
+              <TabBarIcon
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuFindme_inactive.png')}
+              />
   )
 };
 
-const ShotMyTasteStack = createStackNavigator({
-  ShotMyTaste: ShotMyTasteScreen,
+const TrendStack = createStackNavigator({
+  Trend: TrendScreen,
 });
 
-ShotMyTasteStack.navigationOptions = {
+TrendStack.navigationOptions = {
   tabBarLabel: '취향저격',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      imageUri= {require('../assets/images/icoMenuLike.png')}
-    />
-  ),
+    focused ? <TabBarIcon
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuLike_active.png')}
+              />
+              :
+              <TabBarIcon
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuLike_inactive.png')}
+              />
+  )
 };
 
 const WritingStack = createStackNavigator({
@@ -86,11 +96,9 @@ MyPageStack.navigationOptions = {
 };
 
 
-
-
 export default createBottomTabNavigator({
   FindMeStack,
-  ShotMyTasteStack,
+  TrendStack,
   WritingStack,
   RankingStack,
   MyPageStack,
@@ -111,4 +119,5 @@ export default createBottomTabNavigator({
     tabStyle: {}
   }
 });
+
 
