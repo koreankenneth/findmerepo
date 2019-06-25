@@ -78,4 +78,79 @@ const dummyData = {
     comments: ['C19286398619283', 'C19286398619284', 'C19286398619285', 'C19286398619286'],
     followers: ['koreankenneth', 'ekei', 'heideson']
   },
+  FM2019030100006: {
+    id: 'FM2019030100006',
+    title: 'I need to buy that one.',
+    author: 'nelo13',
+    timestamp: 1476508607000,
+    text: '세번째 컨텐츠. 한글 테스트.',
+    isSecret: false,
+    item: {
+      name: '18SS 골든구스 슈퍼스타 화이트',
+      brand: 'Golden Goose',
+      imageURL: 'https://image.goat.com/attachments/product_template_pictures/images/020/869/562/original/432997_107.png.png',
+    },
+    comments: ['C19286398619283', 'C19286398619284', 'C19286398619285', 'C19286398619286'],
+    followers: ['koreankenneth', 'ekei', 'heideson']
+  },
+  FM2019030100007: {
+    id: 'FM2019030100007',
+    title: 'I need to buy that one.',
+    author: 'nelo13',
+    timestamp: 1476508607000,
+    text: '세번째 컨텐츠. 한글 테스트.',
+    isSecret: false,
+    item: {
+      name: '18SS 골든구스 슈퍼스타 화이트',
+      brand: 'Golden Goose',
+      imageURL: 'https://image.goat.com/attachments/product_template_pictures/images/020/869/562/original/432997_107.png.png',
+    },
+    comments: ['C19286398619283', 'C19286398619284', 'C19286398619285', 'C19286398619286'],
+    followers: ['koreankenneth', 'ekei', 'heideson']
+  },
+  FM2019030100008: {
+    id: 'FM2019030100008',
+    title: 'I need to buy that one.',
+    author: 'nelo13',
+    timestamp: 1476508607000,
+    text: '세번째 컨텐츠. 한글 테스트.',
+    isSecret: false,
+    item: {
+      name: '18SS 골든구스 슈퍼스타 화이트',
+      brand: 'Golden Goose',
+      imageURL: 'https://image.goat.com/attachments/product_template_pictures/images/020/869/562/original/432997_107.png.png',
+    },
+    comments: ['C19286398619283', 'C19286398619284', 'C19286398619285', 'C19286398619286'],
+    followers: ['koreankenneth', 'ekei', 'heideson']
+  },
+  FM2019030100009: {
+    id: 'FM2019030100009',
+    title: 'I need to buy that one.',
+    author: 'nelo13',
+    timestamp: 1476508607000,
+    text: '세번째 컨텐츠. 한글 테스트.',
+    isSecret: false,
+    item: {
+      name: '18SS 골든구스 슈퍼스타 화이트',
+      brand: 'Golden Goose',
+      imageURL: 'https://image.goat.com/attachments/product_template_pictures/images/020/869/562/original/432997_107.png.png',
+    },
+    comments: ['C19286398619283', 'C19286398619284', 'C19286398619285', 'C19286398619286'],
+    followers: ['koreankenneth', 'ekei', 'heideson']
+  },
+  FM2019030100010: {
+    id: 'FM2019030100010',
+    title: 'I need to buy that one.',
+    author: 'nelo13',
+    timestamp: 1476508607000,
+    text: '세번째 컨텐츠. 한글 테스트.',
+    isSecret: false,
+    item: {
+      name: '18SS 골든구스 슈퍼스타 화이트',
+      brand: 'Golden Goose',
+      imageURL: 'https://image.goat.com/attachments/product_template_pictures/images/020/869/562/original/432997_107.png.png',
+    },
+    comments: ['C19286398619283', 'C19286398619284', 'C19286398619285', 'C19286398619286'],
+    followers: ['koreankenneth', 'ekei', 'heideson']
+  },
 }

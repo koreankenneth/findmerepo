@@ -27,7 +27,7 @@ export default class App extends Component {
         store={store}
         style={styles.container}
       >
-        {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />} */}
+        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <AppNavigator />
       </Provider>
     );
