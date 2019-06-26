@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   orderText: {
-    fontFamily: 'NotoSansCJKkr-Medium',
     fontSize: 10,
     color: '#414141',
   },

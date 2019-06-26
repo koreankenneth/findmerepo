@@ -147,7 +147,6 @@ const styles = StyleSheet.create({
   },
   brandText: {
     fontSize: 7.3,
-    fontFamily: 'NotoSansCJKkr-Bold',
     color: '#6f6f6f',
     letterSpacing: 1.22,
   },
@@ -161,7 +160,6 @@ const styles = StyleSheet.create({
   },
   authorText: {
     fontSize: 10,
-    fontFamily: 'NotoSansCJKkr-Medium',
     color: '#a6a6a6',
     textAlign: 'right',
   },
@@ -172,7 +170,6 @@ const styles = StyleSheet.create({
   },
   bodyText: {
     fontSize: 14,
-    fontFamily: 'NotoSansCJKkr-DemiLight',
     color: '#313131',
     letterSpacing: -0.3,
   },
@@ -182,7 +179,6 @@ const styles = StyleSheet.create({
   timestamp: {
     width: 83,
     fontSize: 10,
-    fontFamily: 'NotoSansCJKkr-Medium',
     color: '#a3a3a3',
     letterSpacing: 0,
     marginRight: 50,
@@ -195,7 +191,6 @@ const styles = StyleSheet.create({
   },
   footerTexts: {
     fontSize: 10.7,
-    fontFamily: 'NotoSansCJKkr-Medium',
     color: '#a3a3a3',
     letterSpacing: 0,
   },
@@ -217,7 +212,6 @@ const styles = StyleSheet.create({
     marginLeft: '10%',
     fontSize: 10,
     fontWeight: '800',
-    fontFamily: 'NotoSansCJKkr-Bold',
     color: '#dd9031',
     letterSpacing: 0,
   },
