@@ -29,7 +29,7 @@ class FindMeContainer extends Component {
     }
 
     return (
-        <ScrollView style={styles.findMeList}>
+        <ScrollView contentContainerStyle={styles.findMeList}>
           {
             Object.keys(findme).map((key) => {
               return (
