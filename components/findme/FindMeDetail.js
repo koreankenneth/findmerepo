@@ -9,13 +9,33 @@ class FindMeDetail extends Component {
 
     return (
       <View>
-        <Text>{findme[id].text}</Text>
+        <View>
+          <Text>Header</Text>
+        </View>
+        <View>
+          <Text>사용자 정보</Text>
+        </View>
+        <View>
+          <Text>제품 사진</Text>
+        </View>
+        <View>
+          <Text>제품정보 + {findme[id].text}</Text>
+        </View>
+        <View>
+          <Text>팔로워 정보</Text>
+        </View>
+        <View>
+          <Text>댓글</Text>
+        </View>
+        <View>
+          <Text>수정, 삭제, 신고하기 버튼</Text>
+        </View>
       </View>
     )
   }
 }
 
-function mapStateToProps ({ findme }) {
+function mapStateToProps({ findme }) {
   return {
     findme
   }
