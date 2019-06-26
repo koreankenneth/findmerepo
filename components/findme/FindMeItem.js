@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     marginLeft: 3.7,
   },
   authorContainer: {
-    alignItems: 'right',
+    alignItems: 'flex-end',
   },
   authorText: {
     fontSize: 10,

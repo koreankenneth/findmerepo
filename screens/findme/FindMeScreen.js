@@ -6,6 +6,7 @@ import FindMeList from '../../components/findme/FindMeList';
 import FindMeListFilter from '../../components/findme/FindMeListFilter';
 import FindMeTopMenu from '../../components/findme/FindMeTopMenu';
 import FindMeHeader from '../../components/findme/FindMeHeader';
+import { white } from '../../utils/colors'
 
 const HEADER_HEIGHT = 70;
 const STICKY_HEADER_HEIGHT = 41;
@@ -16,8 +17,8 @@ export default class FindMeScreen extends Component {
     return (
       <View style={styles.container}>
         <ParallaxScrollView
-          backgroundColor='#ffffff'
-          contentBackgroundColor='#ffffff'
+          backgroundColor={white}
+          contentBackgroundColor={white}
           parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
           stickyHeaderHeight={STICKY_HEADER_HEIGHT}
           renderStickyHeader={() => (
