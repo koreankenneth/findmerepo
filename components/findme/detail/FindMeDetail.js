@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
   founderNum: {
     marginLeft: 8,
     fontSize: 12,
-    fontWeight: 600,
+    fontWeight: '600',
     color: 'red',
   },
   founderText: {
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   followerNum: {
     marginLeft: 8,
     fontSize: 12,
-    fontWeight: 600,
+    fontWeight: '600',
     color: 'red',
   },
   followerText: {
