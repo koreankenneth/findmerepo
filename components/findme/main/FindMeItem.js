@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import { white, red } from '../../utils/colors'
+import { white, red } from '../../../utils/colors'
 import * as Progress from 'react-native-progress'
 
 class FindMeItem extends Component {
@@ -37,7 +37,7 @@ class FindMeItem extends Component {
                   <View style={styles.brandContainer}>
                     <Text style={styles.brandText} >{findMeItem.item.brand}</Text>
                   </View>
-                  {findMeItem.isSecret && <Image source={require('../../assets/images/drawable-xxxhdpi/ico_lock.png')} style={styles.secretIcon} />}
+                  {findMeItem.isSecret && <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_lock.png')} style={styles.secretIcon} />}
                 </View>
                 <View style={styles.textAreaHeaderRight}>
                   <Text style={styles.authorText}>{findMeItem.author}</Text>
@@ -52,10 +52,10 @@ class FindMeItem extends Component {
                 <Text style={styles.timestamp} >{this.dateParser(findMeItem.timestamp)}</Text>
 
 
-                <Image source={require('../../assets/images/drawable-xxxhdpi/ico_metoo.png')} style={styles.footerIcons} />
+                <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_metoo.png')} style={styles.footerIcons} />
                 <Text style={styles.footerTexts} >{findMeItem.comments.length}</Text>
 
-                <Image source={require('../../assets/images/drawable-xxxhdpi/ico_reply.png')} style={styles.footerIcons} />
+                <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_reply.png')} style={styles.footerIcons} />
                 <Text style={styles.footerTexts} >{findMeItem.followers.length}</Text>
               </View>
             </View>

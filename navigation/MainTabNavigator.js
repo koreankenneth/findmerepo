@@ -12,7 +12,7 @@ import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 
-import FindMeDetail from '../components/findme/FindMeDetail';
+import FindMeDetail from '../components/findme/detail/FindMeDetail';
 
 const FindMeStack = createStackNavigator({
   FindMe: FindMeScreen,

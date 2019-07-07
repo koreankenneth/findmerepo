@@ -9,7 +9,7 @@ export default class FindMeHeader extends React.Component {
           <Text style={styles.orderText}>
             최신순
             </Text>
-          <Image source={require('../../assets/images/drawable-xxxhdpi/ico_arrow_down.png')} style={styles.arrowDown} />
+          <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_arrow_down.png')} style={styles.arrowDown} />
         </TouchableOpacity>
       </View>
     );

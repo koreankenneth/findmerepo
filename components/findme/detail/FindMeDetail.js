@@ -12,7 +12,9 @@ class FindMeDetail extends Component {
 
     return (
       <View style={styles.container}>
+
         {/* 헤더영역 */}
+
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <Feather
@@ -56,10 +58,9 @@ class FindMeDetail extends Component {
           </View>
         </View>
 
+        {/* 아이템사진영역 */}
 
         <View style={styles.itemDisplay}>
-
-          {/* 아이템사진영역 */}
           <Swiper
             style={styles.wrapper}
             showsButtons={false}
@@ -80,8 +81,9 @@ class FindMeDetail extends Component {
               source={{ url: 'https://image.goat.com/240/attachments/product_template_pictures/images/014/957/822/original/G33MS590_L26.png.png' }}
             />
           </Swiper>
-
         </View>
+
+        <View style={styles.grayLine} />
 
         {/* 아이템정보영역 */}
 
@@ -90,7 +92,7 @@ class FindMeDetail extends Component {
             <Text style={styles.brand}>{findme[id].item.brand}</Text>
             <View style={styles.itemTitleArea}>
               <Text style={styles.itemName}>{findme[id].item.name}</Text>
-              {findme[id].isSecret && <Image source={require('../../assets/images/drawable-xxxhdpi/ico_lock.png')} style={styles.secretIcon} />}
+              {findme[id].isSecret && <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_lock.png')} style={styles.secretIcon} />}
             </View>
             <View style={styles.expContainer}>
               <View style={styles.expAreaLeft}>
@@ -133,6 +135,9 @@ class FindMeDetail extends Component {
                 L
               </Text>
             </View>
+            <Text style={styles.text}>
+              {findme[id].text}
+            </Text>
           </View>
           <View style={styles.reactionArea}>
             <View style={styles.founder}>
@@ -163,6 +168,11 @@ class FindMeDetail extends Component {
             </View>
           </View>
         </View>
+
+
+
+        <View style={styles.grayLine} />
+
         <ScrollView style={styles.replies}>
           <Text>댓글</Text>
         </ScrollView>
@@ -175,11 +185,11 @@ class FindMeDetail extends Component {
 }
 
 FindMeDetail.navigationOptions = {
-  title:'',
-  headerStyle:{
-    height:0,
+  title: '',
+  headerStyle: {
+    height: 0,
   }
-  
+
 }
 function mapStateToProps({ findme }) {
   return {
@@ -196,7 +206,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 38,
+    height: 40,
     flexDirection: 'row',
     padding: 10,
   },
@@ -249,9 +259,7 @@ const styles = StyleSheet.create({
     color: '#9d9d9d'
   },
   itemDisplay: {
-    flex: 3,
-    paddingBottom: 8,
-    backgroundColor: '#efefef',
+    height: '35%',
   },
   wrapper: {
     backgroundColor: '#ffffff',
@@ -281,10 +289,11 @@ const styles = StyleSheet.create({
   slide: {
     flex: 1,
   },
-  itemInfo: {
-    flex: 3,
+  grayLine: {
     paddingBottom: 8,
     backgroundColor: '#efefef',
+  },
+  itemInfo: {
   },
   itemSummary: {
     padding: 18,
@@ -343,12 +352,16 @@ const styles = StyleSheet.create({
   },
   itemDetailKey: {
     flex: 1,
-    fontSize: 12,
+    fontSize: 13,
   },
   itemDetailValue: {
     flex: 2,
     color: '#7e7e7e',
-    fontSize: 12,
+    fontSize: 13,
+  },
+  text: {
+    marginTop: 15,
+    color: '#7e7e7e',
   },
   reactionArea: {
     flexDirection: 'row',
@@ -356,7 +369,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   founder: {
-    flex: 1, 
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -366,7 +379,7 @@ const styles = StyleSheet.create({
   founderNum: {
     marginLeft: 8,
     fontSize: 12,
-    fontWeight:  600,
+    fontWeight: 600,
     color: 'red',
   },
   founderText: {
@@ -375,7 +388,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   follower: {
-    flex: 1, 
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -383,7 +396,7 @@ const styles = StyleSheet.create({
   followerNum: {
     marginLeft: 8,
     fontSize: 12,
-    fontWeight:  600,
+    fontWeight: 600,
     color: 'red',
   },
   followerText: {

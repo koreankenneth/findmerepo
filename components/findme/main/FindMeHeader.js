@@ -6,12 +6,12 @@ export default class FindMeHeader extends React.Component {
     return (
       <View style={styles.header}>
         <View style={styles.headerAreaLeft}>
-          <Image source={require('../../assets/images/drawable-xxxhdpi/img_logo.png')} style={styles.logo} />
+          <Image source={require('../../../assets/images/drawable-xxxhdpi/img_logo.png')} style={styles.logo} />
         </View>
         <View style={styles.headerAreaRight}>
-          <Image source={require('../../assets/images/drawable-xxxhdpi/ico_goldkey.png')} style={styles.goldkey} />
-          <Image source={require('../../assets/images/drawable-xxxhdpi/group.png')} style={styles.group} />
-          <Image source={require('../../assets/images/drawable-xxxhdpi/ico_alarm.png')} style={styles.alarm} />
+          <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_goldkey.png')} style={styles.goldkey} />
+          <Image source={require('../../../assets/images/drawable-xxxhdpi/group.png')} style={styles.group} />
+          <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_alarm.png')} style={styles.alarm} />
         </View>
       </View>
     );

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import { View } from 'react-native';
+import { StyleSheet }     from 'react-native';
+import { View }           from 'react-native';
 import ParallaxScrollView from '../../components/ParallaxScroll';
-import FindMeList from '../../components/findme/FindMeList';
-import FindMeListFilter from '../../components/findme/FindMeListFilter';
-import FindMeTopMenu from '../../components/findme/FindMeTopMenu';
-import FindMeHeader from '../../components/findme/FindMeHeader';
-import { white } from '../../utils/colors'
+import FindMeHeader       from '../../components/findme/main/FindMeHeader';
+import FindMeTopMenu      from '../../components/findme/main/FindMeTopMenu';
+import FindMeListFilter   from '../../components/findme/main/FindMeListFilter';
+import FindMeList         from '../../components/findme/main/FindMeList';
+import { white }          from '../../utils/colors'
 
 const HEADER_HEIGHT = 70;
 const STICKY_HEADER_HEIGHT = 41;
