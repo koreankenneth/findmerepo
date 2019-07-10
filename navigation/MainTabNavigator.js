@@ -6,16 +6,16 @@ import {
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import FindMeScreen from '../screens/findme/FindMeScreen';
+import FindMeMainScreen from '../screens/findme/MainScreen';
 import TrendScreen from '../screens/trend/TrendScreen';
 import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 
-import FindMeDetail from '../components/findme/detail/FindMeDetail';
+import FindMeDetail from '../screens/findme/DetailScreen';
 
 const FindMeStack = createStackNavigator({
-  FindMe: FindMeScreen,
+  FindMe: FindMeMainScreen,
   FindMeDetail: FindMeDetail,
 });
 

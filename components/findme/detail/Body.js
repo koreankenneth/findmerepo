@@ -1,40 +1,19 @@
-import React, { Component } from 'react'
-import { Image, View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native'
+import React from 'react'
 import { connect } from 'react-redux'
+import { Image, View, Text, StyleSheet } from 'react-native'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import Swiper from 'react-native-swiper'
 import * as Progress from 'react-native-progress'
 
-class FindMeDetail extends Component {
+class Body extends React.Component {
   render() {
     const { findme } = this.props
     const { id } = this.props.navigation.state.params
 
     return (
-      <View style={styles.container}>
+      <View>
 
-        {/* 헤더영역 */}
-
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <Feather
-              name='arrow-left'
-              size={18}
-            />
-          </View>
-          <View style={styles.headerRight}>
-            <Feather style={styles.headerIcons}
-              name='share'
-              size={18}
-            />
-            <Feather style={styles.headerIcons}
-              name='heart'
-              size={18}
-            />
-          </View>
-        </View>
-
-        {/* 프로필영역 */}
+        {/* 프로필 */}
 
         <View style={styles.profile}>
           <View style={styles.profileLeft}>
@@ -58,7 +37,7 @@ class FindMeDetail extends Component {
           </View>
         </View>
 
-        {/* 아이템사진영역 */}
+        {/* 아이템사진 */}
 
         <View style={styles.itemDisplay}>
           <Swiper
@@ -85,7 +64,7 @@ class FindMeDetail extends Component {
 
         <View style={styles.grayLine} />
 
-        {/* 아이템정보영역 */}
+        {/* 아이템정보 */}
 
         <View style={styles.itemInfo}>
           <View style={styles.itemSummary}>
@@ -169,59 +148,24 @@ class FindMeDetail extends Component {
           </View>
         </View>
 
-
-
         <View style={styles.grayLine} />
 
-        <ScrollView style={styles.replies}>
-          <Text>댓글</Text>
-        </ScrollView>
-        <View style={styles.control}>
-          <Text>수정, 삭제, 신고하기 버튼</Text>
-        </View>
       </View>
+
     )
   }
 }
 
-FindMeDetail.navigationOptions = {
-  title: '',
-  headerStyle: {
-    height: 0,
-  }
-
-}
 function mapStateToProps({ findme }) {
   return {
     findme
   }
 }
 
-export default connect(mapStateToProps)(FindMeDetail)
-
+export default connect(mapStateToProps)(Body)
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    height: 40,
-    flexDirection: 'row',
-    padding: 10,
-  },
-  headerLeft: {
-    flex: 1,
-  },
-  headerRight: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    flex: 1,
-  },
-  headerIcons: {
-    marginLeft: 10,
-    marginRight: 10,
-  },
   profile: {
     height: 40,
     flexDirection: 'row',
@@ -402,10 +346,5 @@ const styles = StyleSheet.create({
   followerText: {
     marginLeft: 2,
     fontSize: 12,
-  },
-  replies: {
-  },
-  control: {
-    flex: 0.5,
   },
 })

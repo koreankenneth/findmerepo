@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, StyleSheet, ScrollView } from 'react-native'
-import FindMeItem from './FindMeItem'
+import FindMeItem from './Item'
 import { loadFindMe } from '../../../utils/api'
 import { setFindMe } from '../../../actions/findme'
 import { AppLoading } from 'expo'

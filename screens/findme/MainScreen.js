@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet }     from 'react-native';
-import { View }           from 'react-native';
-import ParallaxScrollView from '../../components/ParallaxScroll';
-import FindMeHeader       from '../../components/findme/main/FindMeHeader';
-import FindMeTopMenu      from '../../components/findme/main/FindMeTopMenu';
-import FindMeListFilter   from '../../components/findme/main/FindMeListFilter';
-import FindMeList         from '../../components/findme/main/FindMeList';
-import { white }          from '../../utils/colors'
+import { StyleSheet }       from 'react-native';
+import { View }             from 'react-native';
+import ParallaxScrollView   from '../../components/ParallaxScroll';
+import Header               from '../../components/findme/main/Header';
+import TopNav               from '../../components/findme/main/TopNav';
+import ListFilter           from '../../components/findme/main/ListFilter';
+import List                 from '../../components/findme/main/List';
+import { white }            from '../../utils/colors'
 
 const HEADER_HEIGHT = 70;
 const STICKY_HEADER_HEIGHT = 41;
@@ -22,25 +22,25 @@ export default class FindMeScreen extends Component {
           parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
           stickyHeaderHeight={STICKY_HEADER_HEIGHT}
           renderStickyHeader={() => (
-            <View style={styles.findMeTopMenu}>
-              <FindMeTopMenu />
+            <View style={styles.topMenu}>
+              <TopNav />
             </View>
           )}
           renderForeground={() => (
             <View>
-              <View style={styles.findMeHeader}>
-                <FindMeHeader />
+              <View style={styles.header}>
+                <Header />
               </View>
-              <View style={styles.findMeTopMenu}>
-                <FindMeTopMenu />
+              <View style={styles.topMenu}>
+                <TopNav />
               </View>
             </View>
           )}>
-          <View style={styles.findMeListFilter}>
-            <FindMeListFilter />
+          <View style={styles.listFilter}>
+            <ListFilter />
           </View>
-          <View style={styles.findMeList}>
-            <FindMeList navigation={this.props.navigation} />
+          <View style={styles.list}>
+            <List navigation={this.props.navigation} />
           </View>
         </ParallaxScrollView>
       </View>
@@ -62,16 +62,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  findMeHeader: {
+  header: {
     height: HEADER_HEIGHT,
   },
-  findMeTopMenu: {
+  topMenu: {
     height: STICKY_HEADER_HEIGHT,
   },
-  findMeListFilter: {
+  listFilter: {
     height: 25,
   },
-  findMeList: {
+  list: {
     flex: 8,
   },
 })

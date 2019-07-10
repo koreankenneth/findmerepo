@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import { white, red } from '../../../utils/colors'
+import { white } from '../../../utils/colors'
 import * as Progress from 'react-native-progress'
 
-class FindMeItem extends Component {
+class Item extends Component {
 
   dateParser = (timestamp) => {
     const date = Date.now()
@@ -87,7 +87,7 @@ function mapStateToProps({ findme }, { id }) {
   }
 }
 
-export default connect(mapStateToProps)(FindMeItem)
+export default connect(mapStateToProps)(Item)
 
 const styles = StyleSheet.create({
   item: {

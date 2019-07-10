@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 
-export default class FindMeTopMenu extends React.Component {
+export default class TopNav extends React.Component {
   state = {
     selected: 0,
   }

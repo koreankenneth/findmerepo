@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 
-export default class FindMeHeader extends React.Component {
+export default class Header extends React.Component {
   render() {
     return (
       <View style={styles.header}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 
-export default class FindMeHeader extends React.Component {
+export default class ListFilter extends React.Component {
   render() {
     return (
       <View style={styles.findMeOrder}>
