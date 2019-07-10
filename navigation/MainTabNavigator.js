@@ -7,6 +7,8 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import FindMeMainScreen from '../screens/findme/MainScreen';
+// import Test from '../screens/findme/Test';
+
 import TrendScreen from '../screens/trend/TrendScreen';
 import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';

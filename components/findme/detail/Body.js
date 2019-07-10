@@ -11,7 +11,7 @@ class Body extends React.Component {
     const { id } = this.props.navigation.state.params
 
     return (
-      <View>
+      <View style={styles.container}>
 
         {/* 프로필 */}
 
@@ -166,6 +166,8 @@ export default connect(mapStateToProps)(Body)
 
 
 const styles = StyleSheet.create({
+  container: {
+  },
   profile: {
     height: 40,
     flexDirection: 'row',
@@ -203,7 +205,7 @@ const styles = StyleSheet.create({
     color: '#9d9d9d'
   },
   itemDisplay: {
-    height: '35%',
+    height: 350,
   },
   wrapper: {
     backgroundColor: '#ffffff',

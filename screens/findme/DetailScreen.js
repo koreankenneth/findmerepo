@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import Header from '../../components/findme/detail/Header'
 import Body from '../../components/findme/detail/Body'
-import Comments from '../../components/findme/detail/Comments'
+import Comment from '../../components/findme/detail/Comment'
 
 export default class DetailScreen extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
 
         {/* 헤더영역 */}
         <Header />
@@ -16,13 +16,13 @@ export default class DetailScreen extends Component {
         <Body navigation={this.props.navigation} />
 
         {/* 댓글영역 */}
-        <Comments navigation={this.props.navigation} />
+        <Comment navigation={this.props.navigation} />
 
         {/* 제어영역 */}
         <View style={styles.control}>
           <Text>수정, 삭제, 신고하기 버튼</Text>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
