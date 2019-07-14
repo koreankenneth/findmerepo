@@ -1,18 +1,23 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import { getAgeOfPost } from '../../../utils/helper'
 
-class Comment extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.profile}>
+export default function Comment({ reply }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.profile}>
+        <View style={styles.leftArea}>
+
           <Image
             style={styles.photo}
             source={{ url: 'https://pbs.twimg.com/profile_images/716487122224439296/HWPluyjs_400x400.jpg' }}
           />
-          <Text style={styles.name}>JAY</Text>
+        </View>
+        <View style={styles.middleArea}>
+          <Text style={styles.name}>
+            {reply.writer.name}
+          </Text>
           <View style={styles.gradeContainer}>
             <Text style={styles.gradeText}>
               Bronze
@@ -28,6 +33,8 @@ class Comment extends React.Component {
               신뢰 80%
             </Text>
           </View>
+        </View>
+        <View style={styles.rightArea}>
           <View style={styles.moreActionButtonContainer}>
             <TouchableOpacity>
               <Feather style={styles.profileIcons}
@@ -38,16 +45,28 @@ class Comment extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
+      </View>
 
-        <View style={styles.body}>
-          <Text style={styles.content}>
-            재고가 없네요!
-            </Text>
+      <View style={styles.body}>
+        <View style={styles.leftArea}>
         </View>
+        <View style={styles.middleArea}>
+          <Text style={styles.content}>
+            {reply.content}
+          </Text>
+        </View>
+        <View style={styles.rightArea}>
+        </View>
+      </View>
 
 
-        <View style={styles.reaction}>
-          <Text style={styles.timestamp}>이틀전</Text>
+      <View style={styles.reaction}>
+        <View style={styles.leftArea}>
+        </View>
+        <View style={styles.middleArea}>
+          <Text style={styles.timestamp}>
+            {getAgeOfPost(reply.creationDateTime)}
+          </Text>
 
           <Text style={styles.textSpacer}>·</Text>
 
@@ -57,52 +76,59 @@ class Comment extends React.Component {
           </View>
 
           <Text style={styles.textSpacer}>·</Text>
-
           <View style={styles.followButton}>
             <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_metoo.png')} style={styles.reactionIcons} />
             <Text style={styles.followText}>나도 찾아요</Text>
             <Text style={styles.followNumberText}>6</Text>
           </View>
+
+        </View>
+        <View style={styles.rightArea}>
         </View>
       </View>
-    )
-  }
+    </View>
+  )
 }
-
-function mapStateToProps({ findme }) {
-  return {
-    findme
-  }
-}
-
-export default connect(mapStateToProps)(Comment)
-
 
 const styles = StyleSheet.create({
   container: {
     height: 148,
-    borderWidth: 0.5,
+    padding: 15,
     borderColor: '#c8c8c8',
-    padding: 10,
+    borderBottomWidth: 0.5,
   },
   profile: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
+  leftArea: {
+    flex: 2,
+  },
+  middleArea: {
+    flex: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  rightArea: {
+    flex: 2,
+    alignItems: 'flex-end',
+  },
   photo: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     marginRight: 10,
   },
   name: {
-    fontSize: 13,
-    fontWeight: '800',
+    fontSize: 16,
+    fontWeight: '600',
     marginRight: 10,
   },
   gradeContainer: {
-    height: 13.3,
-    borderRadius: 6.5,
+    height: 16,
+    borderRadius: 8,
     backgroundColor: '#d3ccc7',
     alignItems: 'center',
     justifyContent: 'center',
@@ -111,12 +137,12 @@ const styles = StyleSheet.create({
     paddingRight: 6.7,
   },
   gradeText: {
-    fontSize: 6.7,
+    fontSize: 8,
     color: '#ffffff',
   },
   roundLabelContainer: {
-    height: 13.3,
-    borderRadius: 6.5,
+    height: 16,
+    borderRadius: 8,
     borderWidth: 0.5,
     borderColor: '#c5b4a4',
     alignItems: 'center',
@@ -126,22 +152,26 @@ const styles = StyleSheet.create({
     paddingRight: 6.7,
   },
   roundLabelText: {
-    fontSize: 6,
+    fontSize: 8,
     color: '#a78563',
   },
   moreActionButtonContainer: {
     justifyContent: 'flex-end',
   },
   body: {
-    marginLeft: 40,
+    marginTop: 12,
+    flex: 2,
+    flexDirection: 'row',
   },
   content: {
+    width: '100%',
+    height: '100%',
     color: '#484848',
-    fontSize: 12,
+    fontSize: 14,
   },
   reaction: {
+    flex: 1,
     height: 17.7,
-    marginLeft: 40,
     marginTop: 12,
     marginBottom: 12,
     flexDirection: 'row',
@@ -149,7 +179,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   timestamp: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#a5a5a5',
 
   },
@@ -163,7 +193,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   commentText: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#a5a5a5',
 
   },
@@ -172,13 +202,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   followText: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#a5a5a5',
 
   },
   followNumberText: {
     marginLeft: 3,
-    fontSize: 10,
+    fontSize: 12,
     color: '#da5804',
   },
   reactionIcons: {

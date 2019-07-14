@@ -3,15 +3,10 @@ import { connect } from 'react-redux'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { white } from '../../../utils/colors'
 import * as Progress from 'react-native-progress'
+import CountDownBar from '../common/CountDownBar'
+
 
 class Item extends Component {
-
-  dateParser = (timestamp) => {
-    const date = Date.now()
-
-    //return `${date.getFullYear}.${date.getMonth}.${date.getDate}`
-    return new Intl.DateTimeFormat('en-US').format(timestamp)
-  }
 
   render() {
     const { findMeItem, navigation } = this.props
@@ -28,62 +23,45 @@ class Item extends Component {
             <View style={styles.imageArea} >
               <Image
                 style={styles.photo}
-                source={{url:findMeItem.item.imageURL}}
+                source={{url:findMeItem.images[0].link}}
               />
             </View>
             <View style={styles.textArea} >
               <View style={styles.textAreaHeader}>
                 <View style={styles.textAreaHeaderLeft}>
                   <View style={styles.brandContainer}>
-                    <Text style={styles.brandText} >{findMeItem.item.brand}</Text>
+                    <Text style={styles.brandText} >{findMeItem.product.productBrand}</Text>
                   </View>
-                  {findMeItem.isSecret && <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_lock.png')} style={styles.secretIcon} />}
+                  {findMeItem.exposureType !== 'PUBLIC' && <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_lock.png')} style={styles.secretIcon} />}
                 </View>
                 <View style={styles.textAreaHeaderRight}>
-                  <Text style={styles.authorText}>{findMeItem.author}</Text>
+                  <Text style={styles.authorText}>{findMeItem.writer.name}</Text>
                 </View>
               </View>
               <View style={styles.textAreaBody}>
                 <Text style={styles.bodyText}>
-                  {findMeItem.item.name}
+                  {findMeItem.content}
                 </Text>
               </View>
               <View style={styles.textAreaFooter}>
-                <Text style={styles.timestamp} >{this.dateParser(findMeItem.timestamp)}</Text>
-
-
+                <Text style={styles.timestamp} >{findMeItem.creationDateTime}</Text>
                 <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_metoo.png')} style={styles.footerIcons} />
-                <Text style={styles.footerTexts} >{findMeItem.comments.length}</Text>
-
+                <Text style={styles.footerTexts} >{findMeItem.replyCount}</Text>
                 <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_reply.png')} style={styles.footerIcons} />
-                <Text style={styles.footerTexts} >{findMeItem.followers.length}</Text>
+                <Text style={styles.footerTexts} >{findMeItem.findmeTooCount}</Text>
               </View>
             </View>
           </View>
-          <View style={styles.expContainer}>
-            <View style={styles.expAreaLeft}>
-                <Progress.Bar
-                  progress={0.8}
-                  height={8}
-                  width={null}
-                  color={'#e79e44'}
-                  unfilledColor={'#eeeeee'}
-                  borderWidth={0}
-                />
-            </View>
-            <View style={styles.expAreaRight}>
-              <Text style={styles.expText}>12일 3시간 남음</Text>
-            </View>
-          </View>
+          <CountDownBar timestamp={findMeItem.creationDateTime} />
         </TouchableOpacity>
       </View>
     )
   }
 }
 
-function mapStateToProps({ findme }, { id }) {
+function mapStateToProps({ findme }, { index }) {
   return {
-    findMeItem: findme[id]
+    findMeItem: findme[index],
   }
 }
 

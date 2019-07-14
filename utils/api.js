@@ -1,20 +1,37 @@
 export async function loadFindMe() {
-  // try {
-  //   let response = await fetch(
-  //     'http://13.125.197.91/findme?page=0', {
-  //       method: 'GET',
-  //       headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-  //     })
-  //   let responseJson = await response.json()
+  try {
+    let response = await fetch(
+      'http://13.125.197.91/findme?page=0', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+    let responseJson = await response.json()
     
-  //   return responseJson
-  // } catch (error) {
-  //   console.error(error)
-  // }
-  return dummyData
+    return responseJson
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function getPostDetail (id) {
+  try {
+    let response = await fetch(
+      `http://13.125.197.91/findme/${id}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+    let responseJson = await response.json()
+    
+    return responseJson
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 const dummyData = {

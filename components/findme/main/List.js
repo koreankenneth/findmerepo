@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 import FindMeItem from './Item'
 import { loadFindMe } from '../../../utils/api'
 import { setFindMe } from '../../../actions/findme'
@@ -34,7 +34,7 @@ class FindMeContainer extends Component {
             Object.keys(findme).map((key) => {
               return (
                 <FindMeItem
-                  id={key}
+                  index={key}
                   navigation={navigation}
                 />
               )
