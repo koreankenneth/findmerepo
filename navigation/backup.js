@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform ,StyleSheet} from 'react-native';
 import {
   createStackNavigator,
   createBottomTabNavigator,
@@ -6,6 +7,7 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import FindMeMainScreen from '../screens/findme/MainScreen';
+// import Test from '../screens/findme/Test';
 
 import TrendScreen from '../screens/trend/TrendScreen';
 import WritingScreen from '../screens/WritingScreen';
@@ -14,35 +16,25 @@ import MyPageScreen from '../screens/MyPageScreen';
 
 import FindMeDetail from '../screens/findme/DetailScreen';
 
-const FindMeStack = createStackNavigator(
-  {
-    FindMe: FindMeMainScreen,
-    FindMeDetail: FindMeDetail,
-  },
-  {
-    navigationOptions: ({ navigation }) => {
-      const tabBarLabel   = '파인드미'
-      const lastLocation  = navigation.state.routes.length -1
-      const tabBarVisible = navigation.state.routes[lastLocation].routeName === 'FindMeDetail' ? false : true
-      const tabBarIcon    = ({ focused }) => (
-        focused ? <TabBarIcon
-          focused={focused}
-          imageUri={require('../assets/images/icoMenuFindme_active.png')}
-        />
-          :
-          <TabBarIcon
-            focused={focused}
-            imageUri={require('../assets/images/icoMenuFindme_inactive.png')}
-          />
-      )
-      return {
-        tabBarLabel, 
-        tabBarVisible,
-        tabBarIcon,
-      }
-    }
-  }
-)
+const FindMeStack = createStackNavigator({
+  FindMe: FindMeMainScreen,
+  FindMeDetail: FindMeDetail,
+});
+
+FindMeStack.navigationOptions = {
+  tabBarLabel: '파인드미',
+  tabBarIcon: ({ focused }) => (
+    focused ? <TabBarIcon
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuFindme_active.png')}
+              />
+              :
+              <TabBarIcon
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuFindme_inactive.png')}
+              />
+  )
+};
 
 const TrendStack = createStackNavigator({
   Trend: TrendScreen,
@@ -52,14 +44,14 @@ TrendStack.navigationOptions = {
   tabBarLabel: '취향저격',
   tabBarIcon: ({ focused }) => (
     focused ? <TabBarIcon
-      focused={focused}
-      imageUri={require('../assets/images/icoMenuLike_active.png')}
-    />
-      :
-      <TabBarIcon
-        focused={focused}
-        imageUri={require('../assets/images/icoMenuLike_inactive.png')}
-      />
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuLike_active.png')}
+              />
+              :
+              <TabBarIcon
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuLike_inactive.png')}
+              />
   )
 };
 
@@ -72,7 +64,7 @@ WritingStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      imageUri={require('../assets/images/icoMenuWrite.png')}
+      imageUri= {require('../assets/images/icoMenuWrite.png')}
     />
   ),
 };
@@ -87,7 +79,7 @@ RankingStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      imageUri={require('../assets/images/icoMenuRanking.png')}
+      imageUri= {require('../assets/images/icoMenuRanking.png')}
     />
   ),
 };
@@ -103,7 +95,7 @@ MyPageStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      imageUri={require('../assets/images/icoMenuMy.png')}
+      imageUri= {require('../assets/images/icoMenuMy.png')}
     />
   ),
 };
@@ -117,20 +109,20 @@ export default createBottomTabNavigator({
   MyPageStack,
 
 }, {
-    tabBarOptions: {
-      showLabel: true,
-      showIcon: true,
-      style: {
-        backgroundColor: 'black',
-        height: 61,
-      },
-      labelStyle: {
+  tabBarOptions: {
+    showLabel: true,
+    showIcon: true,
+    style: {
+      backgroundColor: 'black',
+      height: 61,
+    },
+    labelStyle: {
         fontSize: 9.3,
         color: 'white',
-        marginBottom: 9,
-      },
-      tabStyle: {}
-    }
-  });
+        marginBottom : 9,
+    },
+    tabStyle: {}
+  }
+});
 
 
