@@ -23,7 +23,7 @@ export default class DetailScreen extends Component {
     if (ready === false) {
       return <AppLoading />
     }
-    
+
     return (
       <ScrollView style={styles.container}>
 
@@ -31,7 +31,7 @@ export default class DetailScreen extends Component {
         <Header />
 
         {/* 바디영역 */}
-        <Body 
+        <Body
           postDetail={postDetail}
         />
 
@@ -39,15 +39,23 @@ export default class DetailScreen extends Component {
 
         {
           postDetail.replies.map((reply) => (
-            <Comment 
+            <Comment
               reply={reply}
             />
           ))
         }
 
         {/* 제어영역 */}
-        <View style={styles.control}>
-          <Text>수정, 삭제, 신고하기 버튼</Text>
+        <View>
+          <View style={styles.control}>
+            <Text>수정하기</Text>
+          </View>
+          <View style={styles.control}>
+            <Text>삭제하기</Text>
+          </View>
+          <View style={styles.control}>
+            <Text>게시글 신고하기</Text>
+          </View>
         </View>
       </ScrollView>
     )
@@ -67,5 +75,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   control: {
+    height: 60,
+    color: '#474747',
+    fontSize: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomColor: '#c8c8c8',
+    borderBottomWidth: 0.3,
   },
 })

@@ -9,17 +9,17 @@ export default class Header extends React.Component {
           <View style={styles.headerLeft}>
             <Feather
               name='arrow-left'
-              size={18}
+              size={24}
             />
           </View>
           <View style={styles.headerRight}>
             <Feather style={styles.headerIcons}
               name='share'
-              size={18}
+              size={21}
             />
             <Feather style={styles.headerIcons}
               name='heart'
-              size={18}
+              size={21}
             />
           </View>
         </View>
@@ -30,16 +30,20 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
   header: {
-    height: 40,
+    height: 60,
     flexDirection: 'row',
     padding: 10,
   },
   headerLeft: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   headerRight: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     flex: 1,
   },
   headerIcons: {
