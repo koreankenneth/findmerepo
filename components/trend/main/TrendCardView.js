@@ -58,8 +58,15 @@ const TrendCardView = ({data}) => (
         </View>
         <Text style={styles.CardTitle}>{data.title}</Text>
         <View style={styles.bottomBar}>
-            <Text style={styles.CardWriter}>{data.writer + "  ·  "} </Text>
-            <Text style={styles.CardDate}>{data.date}</Text>
+            <View style={styles.writerView}>
+                <Text style={styles.CardWriter}>{data.writer + "  ·  "} </Text>
+                <Text style={styles.CardDate}>{data.date}</Text>
+            </View>
+            
+            <View style={styles.replyView}>
+                <Image style={styles.replyIcon} source={require('../../../assets/images/drawable-xxxhdpi/ico_reply.png')} />
+                <Text style={styles.replyCount}>{data.replyCount}</Text>
+            </View>
         </View>
         {getCardButton(data.areadyGetGoldkey, data.goldkeyCount, data.itemId)}
     </View>
@@ -144,7 +151,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     CardDate : {
-        width: '20%',
+        width: '25%',
         fontSize: 10,
         justifyContent: 'center', 
         alignItems: 'center',
@@ -185,6 +192,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     bottomBar : {
+        width :'100%',
         flexDirection: 'row',
     },
     fontsize25_3:{
@@ -199,7 +207,35 @@ const styles = StyleSheet.create({
         alignSelf :'center',
         margin : 4,
     },
+    writerView : {
+        width : '70%',
+        alignItems : 'flex-start',
+        alignSelf : 'flex-start',
+        flexDirection: 'row',
+    },
+    replyView : {
+        width : '30%',
+        alignItems : 'flex-end',
+        justifyContent : 'flex-end',
+        flexDirection: 'row',
+    },
+    replyIcon:{
+        width : 15,
+        height : 15,
+        margin : 0,
+        padding: 0,
+        marginBottom : 6,
+    },
+    replyCount:{
+        height : 15,
+        color:'#a3a3a3',
+        fontSize : 11,
+        textAlign : 'right',
+        marginLeft : 5,
+        marginBottom : 8,
+        marginRight : 3,
 
+    }
 });
 
 export default TrendCardView;

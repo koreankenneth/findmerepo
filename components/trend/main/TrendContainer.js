@@ -41,6 +41,7 @@ export default class TrendContainer extends React.Component {
             areadyGetGoldkey : false,
             goldkeyCount : 2,
             itemId : 1,
+            replyCount : 3,
         },{
             type: 1,
             writer : '나불나불',
@@ -50,6 +51,7 @@ export default class TrendContainer extends React.Component {
             areadyGetGoldkey : true,
             goldkeyCount : 1,
             itemId : 2,
+            replyCount : 30,
         },{
             type: 2,
             writer : '나불나불',
@@ -59,6 +61,7 @@ export default class TrendContainer extends React.Component {
             areadyGetGoldkey : true,
             goldkeyCount : 2,
             itemId : 3,
+            replyCount : 32,
         },{
             type: 0,
             writer : '나불나불',
@@ -68,6 +71,7 @@ export default class TrendContainer extends React.Component {
             areadyGetGoldkey : false,
             goldkeyCount : 3,
             itemId : 4,
+            replyCount : 2,
         },{
             type: 1,
             writer : '나불나불',
@@ -77,6 +81,7 @@ export default class TrendContainer extends React.Component {
             areadyGetGoldkey : false,
             goldkeyCount : 3,
             itemId : 5,
+            replyCount : 15,
         },{
             type: 2,
             writer : '나불나불',
@@ -86,6 +91,7 @@ export default class TrendContainer extends React.Component {
             areadyGetGoldkey : false,
             goldkeyCount : 3,
             itemId : 6,
+            replyCount : 0,
         }];
 
         return data;
