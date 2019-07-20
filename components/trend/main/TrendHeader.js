@@ -9,12 +9,16 @@ export default class TrendHeader  extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                {/*
+                뒤로가기 버튼 삭제
                 <View style={{flex:1}}>
-                    <Image style={styles.backIcon} source={require('../../assets/images/drawable-xxxhdpi/fill_1.png')} />
+                    <Image style={styles.backIcon} source={require('../../../assets/images/drawable-xxxhdpi/fill_1.png')} />
                 </View>
+                */}
+                {/*트렌드 우상단 골든키 + 알림 아이콘 */}
                 <View style={{flex:1, flexDirection : 'row',justifyContent: 'flex-end'}}>
-                    <Image style={styles.goldKeyIcon} source={require('../../assets/images/drawable-xxxhdpi/ico_goldkey_bl.png')} />
-                    <Image style={styles.alarmIcon} source={require('../../assets/images/drawable-xxxhdpi/ico_alarm.png')} />
+                    <Image style={styles.goldKeyIcon} source={require('../../../assets/images/drawable-xxxhdpi/ico_goldkey_bl.png')} />
+                    <Image style={styles.alarmIcon} source={require('../../../assets/images/drawable-xxxhdpi/ico_alarm.png')} />
                 </View>
                 
                 

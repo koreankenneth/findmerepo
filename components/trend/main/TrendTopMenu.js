@@ -2,12 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity, } from 'react-native';
 
 export default class TrendTopMenu  extends React.Component {
-  state = {
-    selected: 0,
-  }
-  _onPressMenu(itemIdx){
-    this.setState({selected : itemIdx});
-  }
   
 
   render() {
@@ -15,64 +9,64 @@ export default class TrendTopMenu  extends React.Component {
       <View style={styles.container}>
         <View style={styles.innerMenu} >
           <View style={styles.innerMenuButton}>
-            <TouchableOpacity onPress={() => this._onPressMenu(0)} >
+            <TouchableOpacity onPress={() => {this.props.onPressViewFilter(0)}} >
               <Text style={
-                      this.state.selected == 0
+                      this.props.viewFilter == 0
                         ? styles.text_active
                         : styles.text_inactive
                 }
                 >전체</Text>
             </TouchableOpacity>
             <View style={
-                      this.state.selected == 0
+                      this.props.viewFilter == 0
                         ? styles.line_active
                         : styles.line_inactive
                 }>
             </View>
           </View>
           <View style={styles.innerMenuButton}>
-            <TouchableOpacity onPress={() => this._onPressMenu(1)} >
+            <TouchableOpacity onPress={() => {this.props.onPressViewFilter(1)}} >
               <Text style={
-                      this.state.selected == 1
+                      this.props.viewFilter == 1
                         ? styles.text_active
                         : styles.text_inactive
                 }
                 >골라줘</Text>
             </TouchableOpacity>
             <View style={
-                      this.state.selected == 1
+                      this.props.viewFilter == 1
                         ? styles.line_active
                         : styles.line_inactive
                 }>
             </View>
           </View>
           <View style={styles.innerMenuButton}>
-            <TouchableOpacity onPress={() => this._onPressMenu(2)} >
+            <TouchableOpacity onPress={() => {this.props.onPressViewFilter(2)}} >
               <Text style={
-                      this.state.selected == 2
-                        ? styles.text_active
-                        : styles.text_inactive
-                }
-                >추천해줘</Text>
-            </TouchableOpacity>
-            <View style={
-                      this.state.selected == 2
-                        ? styles.line_active
-                        : styles.line_inactive
-                }>
-            </View>
-          </View>
-          <View style={styles.innerMenuButton}>
-            <TouchableOpacity onPress={() => this._onPressMenu(3)} >
-              <Text style={
-                      this.state.selected == 3
+                      this.props.viewFilter == 2
                         ? styles.text_active
                         : styles.text_inactive
                 }
                 >알려줘</Text>
             </TouchableOpacity>
             <View style={
-                      this.state.selected == 3
+                      this.props.viewFilter == 2
+                        ? styles.line_active
+                        : styles.line_inactive
+                }>
+            </View>
+          </View>
+          <View style={styles.innerMenuButton}>
+            <TouchableOpacity onPress={() => {this.props.onPressViewFilter(3)}} >
+              <Text style={
+                      this.props.viewFilter == 3
+                        ? styles.text_active
+                        : styles.text_inactive
+                }
+                >추천해줘</Text>
+            </TouchableOpacity>
+            <View style={
+                      this.props.viewFilter == 3
                         ? styles.line_active
                         : styles.line_inactive
                 }>

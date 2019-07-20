@@ -11,15 +11,15 @@ export default class TrendBanner  extends React.Component {
             banners: [
                 {
                   text: 'TV속 궁금한 제품,\n여기서 물어보세요!\n111111',
-                  image: require('../../assets/images/drawable-xxxhdpi/banner_1.png'),
+                  image: require('../../../assets/images/drawable-xxxhdpi/banner_1.png'),
                 },
                 {
                   text: 'TV속 궁금한 제품,\n여기서 물어보세요!\n22222222222222',
-                  image: require('../../assets/images/drawable-xxxhdpi/banner_2.png'),
+                  image: require('../../../assets/images/drawable-xxxhdpi/banner_2.png'),
                 },
                 {
                   text: 'TV속 궁금한 제품,\n여기서 물어보세요!\n3333333333',
-                  image: require('../../assets/images/drawable-xxxhdpi/banner_3.png'),
+                  image: require('../../../assets/images/drawable-xxxhdpi/banner_3.png'),
                 }
             ]
         };

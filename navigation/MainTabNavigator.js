@@ -7,12 +7,13 @@ import {
 import TabBarIcon from '../components/TabBarIcon';
 import FindMeMainScreen from '../screens/findme/MainScreen';
 
-import TrendScreen from '../screens/trend/TrendScreen';
+import TrendScreen from '../screens/trend/TrendMainScreen';
 import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 
 import FindMeDetail from '../screens/findme/DetailScreen';
+import TrendWriteScreen from '../screens/trend/TrendWriteScreen';
 
 const FindMeStack = createStackNavigator(
   {
@@ -46,6 +47,7 @@ const FindMeStack = createStackNavigator(
 
 const TrendStack = createStackNavigator({
   Trend: TrendScreen,
+  TrendWrite : TrendWriteScreen,
 });
 
 TrendStack.navigationOptions = {
@@ -63,10 +65,29 @@ TrendStack.navigationOptions = {
   )
 };
 
-const WritingStack = createStackNavigator({
-  Writing: WritingScreen,
-});
 
+const WritingStack = createStackNavigator({
+    Writing: TrendWriteScreen,
+  },
+  {
+    navigationOptions: ({ navigation }) => {
+      const tabBarLabel   = '글쓰기';
+      const tabBarVisible = false;
+      const tabBarIcon    = ({ focused }) => (
+          <TabBarIcon
+          focused={focused}
+          imageUri={require('../assets/images/icoMenuWrite.png')}
+        />
+      )
+      return {
+        tabBarLabel, 
+        tabBarVisible,
+        tabBarIcon,
+      }
+    }
+  }
+);
+/*
 WritingStack.navigationOptions = {
   tabBarLabel: '글쓰기',
   tabBarIcon: ({ focused }) => (
@@ -75,8 +96,9 @@ WritingStack.navigationOptions = {
       imageUri={require('../assets/images/icoMenuWrite.png')}
     />
   ),
+  visible: false
 };
-
+*/
 
 const RankingStack = createStackNavigator({
   Ranking: RankingScreen,

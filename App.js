@@ -3,25 +3,34 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import middleware from './middlewares';
-import { AppLoading } from 'expo';
+import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import AppNavigator from './navigation/AppNavigator';
+import { AppLoading } from 'expo';
 
 const store = createStore(reducer, middleware)
 
 export default class App extends Component {
+  state = {
+    isReady: false,
+  };
+
+  componentDidMount() {
+
+  }
+
+
   render() {
-    // const [isLoadingComplete, setLoadingComplete] = useState(false);
-    // if (!isLoadingComplete && !this.props.skipLoadingScreen) {
-    //   return (
-    //     <AppLoading
-    //       startAsync={loadResourcesAsync}
-    //       onError={handleLoadingError}
-    //       onFinish={() => handleFinishLoading(setLoadingComplete)}
-    //     />
-    //   );
-    // } else {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={loadResourcesAsync()}
+          onFinish={() => this.setState({ isReady: true })}
+          onError={handleLoadingError}
+        />
+      ); 
+    }
     return (
       <Provider
         store={store}
@@ -39,7 +48,10 @@ async function loadResourcesAsync() {
     Asset.loadAsync([
       require('./assets/images/robot-dev.png'),
       require('./assets/images/robot-prod.png'),
-    ]),
+    ]),Font.loadAsync({
+      'Oswald-Light': require('./assets/fonts/Oswald-Light.ttf'),
+      'Oswald-ExtraLight': require('./assets/fonts/Oswald-ExtraLight.ttf'),
+    })
   ]);
 }
 
