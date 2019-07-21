@@ -14,7 +14,7 @@ export default class TrendSearch  extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image style={styles.searchIcon} source={require('../../assets/images/drawable-xxxhdpi/group.png')} />
+                <Image style={styles.searchIcon} source={require('../../../assets/images/drawable-xxxhdpi/group.png')} />
                 <TextInput
                     style={styles.searchText}
                     placeholder={this.state.placeholder}
