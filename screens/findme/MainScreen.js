@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
-import { StyleSheet }       from 'react-native';
-import { View }             from 'react-native';
-import ParallaxScrollView   from '../../components/ParallaxScroll';
-import Header               from '../../components/findme/main/Header';
-import TopNav               from '../../components/findme/main/TopNav';
-import ListFilter           from '../../components/findme/main/ListFilter';
-import List                 from '../../components/findme/main/List';
-import { white }            from '../../utils/colors'
+import { connect }          from 'react-redux'
+import { View, StyleSheet } from 'react-native'
+import { setCurrentTap }    from '../../actions/app'
+import { colors }            from '../../utils/constants'
+import ParallaxScrollView   from '../../components/ParallaxScroll'
+import Header               from '../../components/findme/main/Header'
+import TopNav               from '../../components/findme/main/TopNav'
+import ListFilter           from '../../components/findme/main/ListFilter'
+import List                 from '../../components/findme/main/List'
 
-const HEADER_HEIGHT = 70;
-const STICKY_HEADER_HEIGHT = 41;
-let PARALLAX_HEADER_HEIGHT = HEADER_HEIGHT + STICKY_HEADER_HEIGHT;
+const CURRENT_TAP           = 'findme'
+const HEADER_HEIGHT         = 70
+const STICKY_HEADER_HEIGHT  = 41
+let PARALLAX_HEADER_HEIGHT  = HEADER_HEIGHT + STICKY_HEADER_HEIGHT;
 
-export default class FindMeScreen extends Component {
+class FindMeScreen extends Component {
+
+  componentDidMount () {
+    const { dispatch } = this.props
+    dispatch(setCurrentTap(CURRENT_TAP))
+  }
+  
   render() {
     return (
       <View style={styles.container}>
         <ParallaxScrollView
-          backgroundColor={white}
-          contentBackgroundColor={white}
+          backgroundColor={colors.white}
+          contentBackgroundColor={colors.white}
           parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
           stickyHeaderHeight={STICKY_HEADER_HEIGHT}
           renderStickyHeader={() => (
@@ -46,17 +54,21 @@ export default class FindMeScreen extends Component {
       </View>
     );
   }
-
 }
 
 FindMeScreen.navigationOptions = {
-  //header: null,
   title:'',
   headerStyle:{
     height:0,
   }
-  
 }
+
+function mapStateToProps(state) {
+  return {
+  }
+}
+
+export default connect(mapStateToProps)(FindMeScreen)
 
 const styles = StyleSheet.create({
   container: {

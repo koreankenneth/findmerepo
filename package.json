@@ -24,13 +24,18 @@
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-parallax-scroll-view": "^0.21.3",
+    "react-native-progress": "^3.6.0",
     "react-native-swiper": "^1.5.14",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0",
-    "react-redux": "^6.0.0",
-    "redux": "^4.0.1",
-    "redux-logger": "^3.0.6",
-    "react-native-progress": "^3.6.0"
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6"
+  },
+  "rnpm":{
+    "assets":[
+      "./assets/fonts"
+    ]
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",

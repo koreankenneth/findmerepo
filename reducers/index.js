@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import findme from './findme'
 import login from './login'
-import post from './post'
+import app from './app'
 
 export default combineReducers ({
   findme,
   login,
-  post,
+  app,
 })

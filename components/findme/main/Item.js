@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import { white } from '../../../utils/colors'
+import { colors } from '../../../utils/constants'
 import * as Progress from 'react-native-progress'
 import CountDownBar from '../common/CountDownBar'
 
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3
     },
-    backgroundColor: white,
+    backgroundColor: colors.white,
     padding: 10.3,
     margin: 6.7,
     justifyContent: 'center',

@@ -67,7 +67,7 @@ TrendStack.navigationOptions = {
 
 
 const WritingStack = createStackNavigator({
-    Writing: TrendWriteScreen,
+    Writing: WritingScreen,
   },
   {
     navigationOptions: ({ navigation }) => {
@@ -132,7 +132,7 @@ MyPageStack.navigationOptions = {
 
 
 export default createBottomTabNavigator({
-  FindMeStack,
+  findme: FindMeStack,
   TrendStack,
   WritingStack,
   RankingStack,

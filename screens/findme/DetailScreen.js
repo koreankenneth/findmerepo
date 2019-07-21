@@ -36,15 +36,14 @@ export default class DetailScreen extends Component {
         />
 
         {/* 댓글영역 */}
-
         {
-          postDetail.replies.map((reply) => (
+          postDetail.replies ? postDetail.replies.map((reply) => (
             <Comment
               reply={reply}
             />
-          ))
+          )) : null
         }
-
+        
         {/* 제어영역 */}
         <View>
           <View style={styles.control}>

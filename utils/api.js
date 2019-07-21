@@ -9,15 +9,16 @@ export async function loadFindMe() {
         },
       })
     let responseJson = await response.json()
-    
+
     return responseJson
   } catch (error) {
     console.error(error)
   }
 }
 
-export async function getPostDetail (id) {
+export async function getPostDetail(id) {
   try {
+
     let response = await fetch(
       `http://13.125.197.91/findme/${id}`, {
         method: 'GET',
@@ -27,13 +28,29 @@ export async function getPostDetail (id) {
         },
       })
     let responseJson = await response.json()
-    
+
     return responseJson
   } catch (error) {
     console.error(error)
   }
 }
 
+export async function initFindMeDraft() {
+  return findMeDraft
+}
+
+const findMeDraft = {
+  Body1: {
+    category: 'undefined',
+    gender: 'undefined',
+  },
+  Body2: {
+  },
+  Body3: {
+  },
+  Body4: {
+  },
+}
 const dummyData = {
   FM2019030100001: {
     id: 'FM2019030100001',
