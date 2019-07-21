@@ -69,7 +69,7 @@ export default connect(mapStateToProps)(Item)
 
 const styles = StyleSheet.create({
   item: {
-    width: '90%',
+    width: '95%',
     height: 136,
     backgroundColor: '#ffffff',
     borderRadius: 11,

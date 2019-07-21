@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, Image } from 'react-native'
 import FindMeItem from './Item'
 import { loadFindMe } from '../../../utils/api'
 import { setFindMe } from '../../../actions/findme'
@@ -30,6 +30,7 @@ class FindMeContainer extends Component {
 
     return (
         <ScrollView contentContainerStyle={styles.findMeList}>
+        <Image source={require('../../../assets/images/drawable-xxxhdpi/img_banner_findme.png')} style={styles.banner} />
           {
             Object.keys(findme).map((key) => {
               return (
@@ -55,6 +56,12 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(FindMeContainer)
 
 const styles = StyleSheet.create({
+  banner: {
+    width: '95%',
+    height: 130,
+    borderRadius: 11,
+    resizeMode: 'contain',
+  },
   findMeList: {
     flex:1,
     alignItems: 'center',

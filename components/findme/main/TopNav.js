@@ -14,6 +14,13 @@ export default class TopNav extends React.Component {
     return (
       <View style={styles.findMeNav}>
         <View style={styles.btnContainer}>
+          <TouchableOpacity style={styles.navButton}>
+            <Text>
+              전체
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.btnContainer}>
           <TouchableOpacity style={styles.navButtonSelected}>
             <Text>
               찾아주세요
@@ -44,13 +51,12 @@ const styles = StyleSheet.create({
     flex:1,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingLeft: 10,
     paddingRight: 3,
     borderBottomColor: '#c2c2c2',
     borderBottomWidth: 0.5,
   },
   btnContainer: {
-    width: '33.33%',
+    flex: 1,
     height: '100%',
     alignItems: 'center',
   },
