@@ -47,6 +47,8 @@ const findMeDraft = {
   Body2: {
   },
   Body3: {
+    color: 'undefined',
+    size: 'undefined',
   },
   Body4: {
   },

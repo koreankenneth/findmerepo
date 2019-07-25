@@ -13,19 +13,20 @@ import { initFindMeDraft } from '../../utils/api'
 import { AppLoading } from 'expo'
 
 const validateData = (page, draft) => {
-  const componentName = 'Body' + page
-  if (draft) {
-    const obj = draft[componentName]
+  // const componentName = 'Body' + page
+  // if (draft) {
+  //   const obj = draft[componentName]
+  //   console.log(obj)
+  //   if (Object.keys(obj).length > 0) {
+  //     for (var key in obj) {
+  //       if (obj[key] === 'undefined') return false
+  //     }
+  //     return true
+  //   }
+  // }
 
-    if (obj) {
-      for (var key in obj) {
-        if (obj[key] === 'undefined') return false
-      }
-      return true
-    }
-  }
-
-  return false
+  // return false
+  return true
 }
 
 class WriteScreen extends Component {
@@ -46,7 +47,6 @@ class WriteScreen extends Component {
   }
 
   goNext = () => {
-    console.log('invoked')
     const currentPage = this.state.page
     validateData(currentPage, this.props.findMeDraft)
       ? this.setState({ page: currentPage + 1 })
@@ -54,17 +54,22 @@ class WriteScreen extends Component {
   }
 
   goPage = (page) => {
-    this.setState({ page: page })
+    const currentPage = this.state.page
+    validateData(currentPage, this.props.findMeDraft)
+      ? this.setState({ page: page })
+      : Alert.alert('Error', 'Please select all.')
   }
 
   onChange = (page, area, value) => {
     const { dispatch, findMeDraft } = this.props
     const draft = {
+      ...findMeDraft,
       [page]: {
         ...findMeDraft[page],
         [area]: value,
       }
     }
+
     dispatch(writeFindMeDraft(draft))
     this.setState({[area]: value})
   }
@@ -105,16 +110,16 @@ class WriteScreen extends Component {
         body = <Body1 onChange={this.onChange} />
         break
       case 2:
-        body = <Body2 />
+        body = <Body2 onChange={this.onChange} />
         break
       case 3:
-        body = <Body3 />
+        body = <Body3 onChange={this.onChange} />
         break
       case 4:
-        body = <Body4 />
+        body = <Body4 onChange={this.onChange} />
         break
       default:
-        body = <Body1 />
+        body = <Body1 onChange={this.onChange} />
         break
     }
 
