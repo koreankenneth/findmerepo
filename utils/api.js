@@ -39,12 +39,83 @@ export async function initFindMeDraft() {
   return findMeDraft
 }
 
+export async function loadBrands() {
+  return brands
+}
+
+
+
+
+const brands = [
+  {
+    id: 'A0001',
+    koreanName: '알렉산더',
+    englishName: 'Alexander',
+    keyWords: '알렉산더, Alexander',
+  },
+  {
+    id: 'A0002',
+    koreanName: '나이키',
+    englishName: 'Nike',
+    keyWords: '나이키, Nike, 니케',
+  },
+  {
+    id: 'A0003',
+    koreanName: '아디다스',
+    englishName: 'Adidas',
+    keyWords: '아디다스, Adidas, 삼디다스',
+  },
+  {
+    id: 'A0004',
+    koreanName: '알프레도 마틴',
+    englishName: 'Alfredo Martin',
+    keyWords: '알프레도 마틴, Alfredo Martin, 알프레드',
+  },
+  {
+    id: 'A0005',
+    koreanName: '닥터마틴',
+    englishName: 'Dr.Martin',
+    keyWords: '닥터마틴, Dr.Martin, 닥마, doctor',
+  },
+  {
+    id: 'A0006',
+    koreanName: '푸마',
+    englishName: 'Puma',
+    keyWords: '푸마, Puma, 퓨마',
+  },
+  {
+    id: 'A0007',
+    koreanName: '골든 구스',
+    englishName: 'Golden Goose',
+    keyWords: '골든 구스, Golden Goose, 골드구스, goldgoose',
+  },
+  {
+    id: 'A0008',
+    koreanName: '아르마니',
+    englishName: 'Armani',
+    keyWords: '아르마니, Armani, 알마니',
+  },
+  {
+    id: 'A0009',
+    koreanName: '파타고니아',
+    englishName: 'Patagonia',
+    keyWords: '파타고니아, Patagonia, 피타고니아',
+  },
+  {
+    id: 'A0010',
+    koreanName: '타미 힐피거',
+    englishName: 'Tommy Hilfiger',
+    keyWords: '타미 힐피거, Tommy Hilfiger, 토미',
+  },
+]
 const findMeDraft = {
   Body1: {
     category: 'undefined',
     gender: 'undefined',
   },
   Body2: {
+    brand: 'undefined',
+    product: 'undefined',
   },
   Body3: {
     color: 'undefined',

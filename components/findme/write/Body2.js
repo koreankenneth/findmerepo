@@ -2,56 +2,56 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import Colors from '../../../constants/Colors'
-import { Feather } from '@expo/vector-icons'
+import { Feather, Ionicons } from '@expo/vector-icons'
 
 
 class Body2 extends Component {
   state = {
-    text: '',
+    product: '',
   }
+
   render() {
+    const { brand, product } = this.props.Body2
     return (
       <View style={styles.container}>
         <View style={styles.subjectArea}>
           <Text style={styles.title}>브랜드 선택</Text>
           <Text style={styles.guide}>브랜드는 정하셨어요?</Text>
           <View style={styles.contents}>
-            <View style={styles.textarea}>
-              <TextInput
-                placeholder="발렌시아가"
-                placeholderTextColor="#c2c2c2"
-                style={styles.textinput}
-                onChangeText={(text) => this.setState({ text })}
-                value={this.state.text}
-              />
-              <View style={styles.searchButtonArea}>
-                <Feather style={styles.searchButton}
-                  name='search'
-                  size={21}
-                  color={Colors.black}
+            {
+              <View style={styles.textArea}>
+                <TextInput
+                  placeholder='발렌시아가'
+                  placeholderTextColor='#c2c2c2'
+                  style={styles.textInput}
+                  value={brand === 'undefined' ? '' : brand}
+                  onFocus={this.props.goBrandSearch}
                 />
+                <View style={styles.searchButtonArea}>
+                  <Feather style={styles.searchButton}
+                    name='search'
+                    size={21}
+                    color={Colors.black}
+                    onPress={this.props.goBrandSearch}
+                  />
+                </View>
               </View>
-            </View>
+            }
           </View>
         </View>
         <View style={styles.subjectArea}>
           <Text style={styles.title}>제품명 입력</Text>
           <Text style={styles.guide}>정확한 제품 이름을 아세요?</Text>
           <View style={styles.contents}>
-            <View style={styles.textarea}>
+            <View style={styles.textArea}>
               <TextInput
-                placeholder="예) 19/SS RX DD003"
-                placeholderTextColor="#c2c2c2"
-                style={styles.textinput}
-                onChangeText={(text) => this.setState({ text })}
-                value={this.state.text}
+                placeholder='예) 19/SS RX DD003'
+                placeholderTextColor='#c2c2c2'
+                style={styles.textInput}
+                onChangeText={(product) => this.props.onChange('Body2', 'product', product)}
+                value={product === 'undefined' ? '' : product}
               />
               <View style={styles.searchButtonArea}>
-                <Feather style={styles.searchButton}
-                  name='search'
-                  size={21}
-                  color={Colors.black}
-                />
               </View>
             </View>
           </View>
@@ -63,6 +63,7 @@ class Body2 extends Component {
 
 function mapStateToProps(state) {
   return {
+    Body2: state.app.findMeDraft.Body2,
   }
 }
 
@@ -88,16 +89,42 @@ const styles = StyleSheet.create({
   },
   contents: {
   },
-  textarea: {
+  selectedBrandArea: {
+    height: 50,
+    borderRadius: 25,
+    borderWidth: 0.5,
+    borderColor: '#979797',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flexBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  brandNameArea: {
+    flex: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textArea: {
+    height: 50,
     justifyContent: 'center',
     flexDirection: 'row',
     borderBottomWidth: 2,
     width: '100%',
     padding: 10,
   },
-  textinput: {
+  brandLabel: {
+  },
+  brandName: {
+    fontSize: 23,
+    fontWeight: '300',
+  },
+  textInput: {
     flex: 15,
-    fontSize: 18,
+    fontSize: 21,
   },
   searchButtonArea: {
     flex: 1,

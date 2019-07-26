@@ -3,12 +3,12 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { Feather, AntDesign } from '@expo/vector-icons'
 import Colors from '../../../constants/Colors'
 
-export default function Header({ page, title, goBack, close }) {
+export default function Header({ page, isOnBrandSearch, title, goBack, close }) {
   return (
     <View style={styles.container}>
       <View style={styles.leftArea}>
       {
-        page !== 1 && 
+        page !== 1 && !isOnBrandSearch &&
         <TouchableOpacity
           onPress={goBack}
         >

@@ -11,27 +11,28 @@ import Footer from '../../components/findme/write/Footer'
 import { writeFindMeDraft } from '../../actions/app'
 import { initFindMeDraft } from '../../utils/api'
 import { AppLoading } from 'expo'
+import BrandSearch from '../../components/findme/write/BrandSearch';
 
 const validateData = (page, draft) => {
-  // const componentName = 'Body' + page
-  // if (draft) {
-  //   const obj = draft[componentName]
-  //   console.log(obj)
-  //   if (Object.keys(obj).length > 0) {
-  //     for (var key in obj) {
-  //       if (obj[key] === 'undefined') return false
-  //     }
-  //     return true
-  //   }
-  // }
+  const componentName = 'Body' + page
+  if (draft) {
+    const obj = draft[componentName]
+    if (Object.keys(obj).length > 0) {
+      for (var key in obj) {
+        if (obj[key] === 'undefined') return false
+      }
+      return true
+    }
+  }
 
-  // return false
-  return true
+  return false
+  //return true
 }
 
 class WriteScreen extends Component {
   state = {
     page: 1,
+    isOnBrandSearch: false,
     ready: false,
   }
 
@@ -41,6 +42,7 @@ class WriteScreen extends Component {
       .then((draft) => dispatch(writeFindMeDraft(draft)))
       .then(() => this.setState({ ready: true }))
   }
+
   goBack = () => {
     const currentPage = this.state.page
     this.setState({ page: currentPage - 1 })
@@ -60,6 +62,10 @@ class WriteScreen extends Component {
       : Alert.alert('Error', 'Please select all.')
   }
 
+  goBrandSearch = () => {
+    this.setState({ isOnBrandSearch: true })
+  }
+
   onChange = (page, area, value) => {
     const { dispatch, findMeDraft } = this.props
     const draft = {
@@ -71,7 +77,12 @@ class WriteScreen extends Component {
     }
 
     dispatch(writeFindMeDraft(draft))
-    this.setState({[area]: value})
+    this.setState({ [area]: value })
+  }
+
+  setBrand = (brand) => {
+    this.onChange('Body2', 'brand', brand)
+    this.setState({ isOnBrandSearch: false })
   }
 
   submit = () => {
@@ -91,14 +102,14 @@ class WriteScreen extends Component {
   }
 
   close = () => {
+    this.setState({ isOnBrandSearch: false })
     this.props.navigation.navigate(
       'FindMe',
     )
   }
 
   render() {
-    const { ready } = this.state
-    const page = this.state.page
+    const { ready, page, isOnBrandSearch } = this.state
 
     if (ready === false) {
       return <AppLoading />
@@ -107,59 +118,109 @@ class WriteScreen extends Component {
     let body
     switch (page) {
       case 1:
-        body = <Body1 onChange={this.onChange} />
+        body =
+          <Body1
+            onChange={this.onChange}
+            navigation={this.props.navigation}
+          />
         break
       case 2:
-        body = <Body2 onChange={this.onChange} />
+        if (isOnBrandSearch) {
+          body = (
+            <BrandSearch
+              setBrand={this.setBrand}
+            />
+          )
+        } else {
+          body = (
+            <Body2
+              onChange={this.onChange}
+              goBrandSearch={this.goBrandSearch}
+              navigation={this.props.navigation}
+            />
+          )
+        }
         break
       case 3:
-        body = <Body3 onChange={this.onChange} />
+        body =
+          <Body3
+            onChange={this.onChange}
+            navigation={this.props.navigation}
+          />
         break
       case 4:
-        body = <Body4 onChange={this.onChange} />
+        body =
+          <Body4
+            onChange={this.onChange}
+            navigation={this.props.navigation}
+          />
         break
       default:
-        body = <Body1 onChange={this.onChange} />
+        body =
+          <Body1
+            onChange={this.onChange}
+            navigation={this.props.navigation}
+          />
         break
     }
 
     return (
       <View style={styles.background}>
         <View style={styles.blankSpace} />
-        <View style={styles.container}>
-          {/* 헤더 */}
-          <View style={styles.header}>
-            <Header
-              page={this.state.page}
-              title={'공개 찾기'}
-              goBack={this.goBack}
-              close={this.close}
-            />
-          </View>
-          {/* 네비게이션 */}
-          <View style={styles.nav}>
-            <Nav
-              page={this.state.page}
-              goPage={this.goPage}
-            />
-          </View>
+        {
+          isOnBrandSearch
+            ? (
+              <View style={styles.container}>
+                <View style={styles.brandHeader}>
+                  <Header
+                    page={this.state.page}
+                    title={'브랜드 찾기'}
+                    isOnBrandSearch={isOnBrandSearch}
+                    goBack={this.goBack}
+                    close={this.close}
+                  />
+                </View>
 
-          {/* 바디 */}
+                <View style={styles.brandBody}>
+                  {body}
+                </View>
+              </View>
+            )
+            : (
 
-          <View style={styles.body}>
-            {body}
-          </View>
+              <View style={styles.container}>
+                <View style={styles.header}>
+                  <Header
+                    page={this.state.page}
+                    title={'공개 찾기'}
+                    isOnBrandSearch={isOnBrandSearch}
+                    goBack={this.goBack}
+                    close={this.close}
+                  />
+                </View>
 
-          {/* 푸터 */}
-          <View style={styles.footer}>
-            <Footer
-              goNext={this.goNext}
-              isActive={true}
-              isFinal={this.state.page === 4}
-              submit={this.submit}
-            />
-          </View>
-        </View>
+                <View style={styles.nav}>
+                  <Nav
+                    page={this.state.page}
+                    goPage={this.goPage}
+                  />
+                </View>
+
+                <View style={styles.body}>
+                  {body}
+                </View>
+
+                <View style={styles.footer}>
+                  <Footer
+                    goNext={this.goNext}
+                    isActive={true}
+                    isFinal={this.state.page === 4}
+                    submit={this.submit}
+                  />
+                </View>
+              </View>
+            )
+        }
       </View>
     )
   }
@@ -197,5 +258,11 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
+  },
+  brandHeader: {
+    flex: 1,
+  },
+  brandBody: {
+    flex: 12,
   },
 })
