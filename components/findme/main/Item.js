@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { colors } from '../../../utils/constants'
-import * as Progress from 'react-native-progress'
 import CountDownBar from '../common/CountDownBar'
+import { formatDateTime } from '../../../utils/helper'
 
 
 class Item extends Component {
@@ -23,7 +23,7 @@ class Item extends Component {
             <View style={styles.imageArea} >
               <Image
                 style={styles.photo}
-                source={{url:findMeItem.images[0].link}}
+                source={{ url: findMeItem.images[0].link }}
               />
             </View>
             <View style={styles.textArea} >
@@ -44,15 +44,21 @@ class Item extends Component {
                 </Text>
               </View>
               <View style={styles.textAreaFooter}>
-                <Text style={styles.timestamp} >{findMeItem.creationDateTime}</Text>
-                <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_metoo.png')} style={styles.footerIcons} />
-                <Text style={styles.footerTexts} >{findMeItem.replyCount}</Text>
-                <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_reply.png')} style={styles.footerIcons} />
-                <Text style={styles.footerTexts} >{findMeItem.findmeTooCount}</Text>
+                <View style={styles.textAreaFooterLeft}>
+                  <Text style={styles.timestamp} >{formatDateTime('YYYY.MM.DD', findMeItem.creationDateTime)}</Text>
+                </View>
+                <View style={styles.textAreaFooterRight}>
+                  <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_metoo.png')} style={styles.footerIcons} />
+                  <Text style={styles.footerTexts} >{findMeItem.replyCount}</Text>
+                  <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_reply.png')} style={styles.footerIcons} />
+                  <Text style={styles.footerTexts} >{findMeItem.findmeTooCount}</Text>
+                </View>
               </View>
             </View>
           </View>
-          <CountDownBar timestamp={findMeItem.creationDateTime} />
+          <View style={styles.countDownArea}>
+            <CountDownBar timestamp={findMeItem.creationDateTime} />
+          </View>
         </TouchableOpacity>
       </View>
     )
@@ -70,7 +76,7 @@ export default connect(mapStateToProps)(Item)
 const styles = StyleSheet.create({
   item: {
     width: '95%',
-    height: 136,
+    height: 150,
     backgroundColor: '#ffffff',
     borderRadius: 11,
     borderWidth: 0.5,
@@ -88,12 +94,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   postInfo: {
+    height: 100,
     flexDirection: 'row',
-    height: 85,
+  },
+  imageArea: {
+    width: '28%',
   },
   photo: {
-    width: 83,
-    height: 83,
+    width: 100,
+    height: 100,
     borderRadius: 8,
     borderWidth: 0.5,
     borderRadius: 8,
@@ -105,8 +114,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   textAreaHeader: {
+    height: '25%',
     flexDirection: 'row',
-    marginTop: 3,
+    alignItems: 'center',
   },
   textAreaHeaderLeft: {
     flex: 1,
@@ -116,54 +126,72 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   brandContainer: {
-    height: 13,
-    padding: 2,
-    borderRadius: 8.8,
+    height: 15,
+    paddingLeft: 4,
+    paddingRight: 4,
+    borderRadius: 7.5,
     borderWidth: 1,
     borderColor: '#979797',
     justifyContent: 'center',
+    alignContent: 'center',
   },
   brandText: {
-    fontSize: 7.3,
+    fontSize: 9,
+    fontWeight: '600',
     color: '#6f6f6f',
     letterSpacing: 1.22,
   },
   secretIcon: {
-    width: 14,
-    height: 14,
+    width: 15,
+    height: 15,
     marginLeft: 3.7,
   },
   authorContainer: {
     alignItems: 'flex-end',
   },
   authorText: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#a6a6a6',
+    fontWeight: '500',
     textAlign: 'right',
   },
   textAreaBody: {
-    height: 50,
-    paddingTop: 6.7,
-    paddingBottom: 6.7,
+    height: '50%',
+    paddingTop: 3,
   },
   bodyText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#313131',
     letterSpacing: -0.3,
   },
   textAreaFooter: {
-    flexDirection: 'row'
+    height: '25%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textAreaFooterLeft: {
+    flex: 1, 
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   timestamp: {
     width: 83,
-    fontSize: 10,
+    fontFamily: 'NotoSansCJKkr-Medium',
+    fontSize: 12,
     color: '#a3a3a3',
     letterSpacing: 0,
     marginRight: 50,
   },
+  textAreaFooterRight: {
+    flex: 1, 
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
   footerIcons: {
-    width: 15,
-    height: 15,
+    width: 17,
+    height: 17,
     marginLeft: 16,
     marginRight: 3,
   },
@@ -172,25 +200,9 @@ const styles = StyleSheet.create({
     color: '#a3a3a3',
     letterSpacing: 0,
   },
-  expContainer: {
-    flexDirection: 'row',
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  expAreaLeft: {
-    width:'75%',
-  },
-  expAreaRight: {
-    width:'25%',
+  countDownArea: {
+    height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  expText: {
-    marginLeft: '10%',
-    fontSize: 10,
-    fontWeight: '800',
-    color: '#dd9031',
-    letterSpacing: 0,
-  },
+  }
 })

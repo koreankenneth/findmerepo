@@ -10,6 +10,7 @@ export default class Header extends React.Component {
             <Feather
               name='arrow-left'
               size={24}
+              onPress={this.props.goBack}
             />
           </View>
           <View style={styles.headerRight}>

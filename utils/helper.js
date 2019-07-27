@@ -11,3 +11,21 @@ export function getAgeOfPost (timestamp) {
   if (Hours) return `${Hours}시간 전`
   return `${Minutes}분 전`
 }
+
+export function formatDateTime (formatType, timestamp) {
+  const objDate = new Date(timestamp)
+  const year = objDate.getFullYear()
+  const month = objDate.getMonth()
+  const date = objDate.getDate()
+  let result = ''
+
+  switch (formatType) {
+    case 'YYYY.MM.DD':
+      result = `${year}.${month}.${date}`
+      break
+    default:
+      result = creationDateTime.toString()
+      break
+  }
+  return result
+}

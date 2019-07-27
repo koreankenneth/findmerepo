@@ -18,7 +18,6 @@ export async function loadFindMe() {
 
 export async function getPostDetail(id) {
   try {
-
     let response = await fetch(
       `http://13.125.197.91/findme/${id}`, {
         method: 'GET',

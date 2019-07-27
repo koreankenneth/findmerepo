@@ -17,6 +17,10 @@ export default class DetailScreen extends Component {
       .then((postDetail) => this.setState({ postDetail, ready: true }))
   }
 
+  goBack = () => {
+    this.props.navigation.goBack()
+  }
+
   render() {
     const { postDetail, ready } = this.state
 
@@ -28,7 +32,9 @@ export default class DetailScreen extends Component {
       <ScrollView style={styles.container}>
 
         {/* 헤더영역 */}
-        <Header />
+        <Header 
+          goBack={this.goBack}
+        />
 
         {/* 바디영역 */}
         <Body
