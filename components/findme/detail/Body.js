@@ -3,7 +3,7 @@ import { Image, View, Text, StyleSheet } from 'react-native'
 import { Feather, Ionicons } from '@expo/vector-icons'
 import Swiper from 'react-native-swiper'
 import CountDownBar from '../common/CountDownBar'
-import { getAgeOfPost } from '../../../utils/helper'
+import { getTimeDiff, getPostStatus } from '../../../utils/helper'
 
 export default function Body({ postDetail }) {
 
@@ -22,7 +22,7 @@ export default function Body({ postDetail }) {
             {postDetail.writer.name}
           </Text>
           <Text style={styles.timing}>
-            {getAgeOfPost(postDetail.creationDateTime)}
+            {getTimeDiff(postDetail.creationDateTime).toString()} 전
           </Text>
         </View>
         <View style={styles.profileRight}>
@@ -69,7 +69,9 @@ export default function Body({ postDetail }) {
             <Text style={styles.itemName}>{postDetail.title}</Text>
             {postDetail.exposureType !== 'PUBLIC' && <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_lock.png')} style={styles.secretIcon} />}
           </View>
-          <CountDownBar timestamp={postDetail.creationDateTime} />
+            <CountDownBar 
+              postStatus={getPostStatus(postDetail)}
+            />
         </View>
         <View style={styles.itemDetail}>
           <View style={styles.itemDetailRow}>

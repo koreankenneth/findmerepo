@@ -15,13 +15,23 @@ const STICKY_HEADER_HEIGHT  = 41
 let PARALLAX_HEADER_HEIGHT  = HEADER_HEIGHT + STICKY_HEADER_HEIGHT;
 
 class FindMeScreen extends Component {
+  state = {
+    page: 'all',
+  }
 
   componentDidMount () {
     const { dispatch } = this.props
     dispatch(setCurrentTap(CURRENT_TAP))
   }
   
+  goPage = (page) => {
+    this.setState({ page: page })
+  }
+
   render() {
+    const { page } = this.state
+    const { navigation } = this.props
+
     return (
       <View style={styles.container}>
         <ParallaxScrollView
@@ -40,7 +50,10 @@ class FindMeScreen extends Component {
                 <Header />
               </View>
               <View style={styles.topMenu}>
-                <TopNav />
+                <TopNav 
+                  page={page}
+                  goPage={this.goPage}
+                />
               </View>
             </View>
           )}>
@@ -48,7 +61,10 @@ class FindMeScreen extends Component {
             <ListFilter />
           </View>
           <View style={styles.list}>
-            <List navigation={this.props.navigation} />
+            <List 
+              page={page}
+              navigation={navigation} 
+            />
           </View>
         </ParallaxScrollView>
       </View>
@@ -81,7 +97,7 @@ const styles = StyleSheet.create({
     height: STICKY_HEADER_HEIGHT,
   },
   listFilter: {
-    height: 25,
+    height: 35,
   },
   list: {
     flex: 8,

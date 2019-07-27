@@ -1,59 +1,68 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 
-export default class TopNav extends React.Component {
-  state = {
-    selected: 0,
-  }
-  _onPressMenu(itemIdx) {
-    this.setState({ selected: itemIdx });
-  }
+export default function TopNav({ page, goPage }) {
 
-
-  render() {
-    return (
-      <View style={styles.findMeNav}>
-        <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.navButton}>
-            <Text>
-              전체
+  return (
+    <View style={styles.findMeNav}>
+      <View style={styles.btnContainer}>
+        <TouchableOpacity
+          onPress={() => goPage('all')}
+          style={[styles.navButton, page === 'all' && styles.navButtonSelected]}
+        >
+          <Text
+            style={[styles.navButtonText, page === 'all' && styles.navButtonTextSelected]}
+          >
+            전체
             </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.navButtonSelected}>
-            <Text>
-              찾아주세요
-          </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.navButton}>
-            <Text>
-              아직 못찾았어요
-        </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.navButton}>
-            <Text>
-              찾았어요
-        </Text>
-          </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       </View>
-    );
-  }
+      <View style={styles.btnContainer}>
+        <TouchableOpacity
+          onPress={() => goPage('find')}
+          style={[styles.navButton, page === 'find' && styles.navButtonSelected]}
+        >
+          <Text
+            style={[styles.navButtonText, page === 'find' && styles.navButtonTextSelected]}
+          >
+            찾아주세요
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.btnContainer}>
+        <TouchableOpacity
+          onPress={() => goPage('notfound')}
+          style={[styles.navButton, page === 'notfound' && styles.navButtonSelected]}
+        >
+          <Text
+            style={[styles.navButtonText, page === 'notfound' && styles.navButtonTextSelected]}
+          >
+            아직 못찾았어요
+        </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.btnContainer}>
+        <TouchableOpacity
+          onPress={() => goPage('found')}
+          style={[styles.navButton, page === 'found' && styles.navButtonSelected]}
+        >
+          <Text
+            style={[styles.navButtonText, page === 'found' && styles.navButtonTextSelected]}
+          >
+            찾았어요
+        </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   findMeNav: {
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingRight: 3,
-    borderBottomColor: '#c2c2c2',
-    borderBottomWidth: 0.5,
+    paddingRight: 10,
   },
   btnContainer: {
     flex: 1,
@@ -62,18 +71,20 @@ const styles = StyleSheet.create({
   },
   navButton: {
     height: '100%',
-    fontSize: 13.3,
-    color: '#121212',
-    opacity: 0.6,
     justifyContent: 'center',
   },
   navButtonSelected: {
-    height: '100%',
-    fontSize: 14.7,
-    color: '#121212',
-    fontWeight: '900',
     borderBottomColor: '#000000',
     borderBottomWidth: 2.5,
-    justifyContent: 'center',
+  },
+  navButtonText: {
+    fontSize: 14,
+    color: '#121212',
+    opacity: 0.6,
+  },
+  navButtonTextSelected: {
+    fontSize: 15,
+    fontWeight: '900',
+    opacity: 1,
   },
 });

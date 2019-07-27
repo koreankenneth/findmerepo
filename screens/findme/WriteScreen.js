@@ -13,22 +13,6 @@ import { initFindMeDraft } from '../../utils/api'
 import { AppLoading } from 'expo'
 import BrandSearch from '../../components/findme/write/BrandSearch';
 
-const validateData = (page, draft) => {
-  const componentName = 'Body' + page
-  if (draft) {
-    const obj = draft[componentName]
-    if (Object.keys(obj).length > 0) {
-      for (var key in obj) {
-        if (obj[key] === 'undefined') return false
-      }
-      return true
-    }
-  }
-
-  return false
-  //return true
-}
-
 class WriteScreen extends Component {
   state = {
     page: 1,
@@ -225,6 +209,23 @@ class WriteScreen extends Component {
     )
   }
 }
+
+const validateData = (page, draft) => {
+  const componentName = 'Body' + page
+  if (draft) {
+    const obj = draft[componentName]
+    if (Object.keys(obj).length > 0) {
+      for (var key in obj) {
+        if (obj[key] === 'undefined') return false
+      }
+      return true
+    }
+  }
+
+  return false
+  //return true
+}
+
 function mapStateToProps(state) {
   return {
     findMeDraft: state.app.findMeDraft

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Feather } from '@expo/vector-icons'
-import { getAgeOfPost } from '../../../utils/helper'
+import { getTimeDiff } from '../../../utils/helper'
 
 export default function Comment({ reply }) {
   return (
@@ -65,7 +65,7 @@ export default function Comment({ reply }) {
         </View>
         <View style={styles.middleArea}>
           <Text style={styles.timestamp}>
-            {getAgeOfPost(reply.creationDateTime)}
+            {getTimeDiff(reply.creationDateTime).toString()} 전
           </Text>
 
           <Text style={styles.textSpacer}>·</Text>

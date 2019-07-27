@@ -1,55 +1,24 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import * as Progress from 'react-native-progress'
+import Colors from '../../../constants/Colors'
 
-export default function CountDownBar({timestamp}) {
-  getTimeDiff = (timestamp) => {
-    const millisecondsOf1Day = 864e5 // 24 * 60 * 60 * 1000 = 86400000
-    const millisecondsOf2Week = millisecondsOf1Day * 14
-  
-    // 1. timestamps를 ms로 전환
-    const creationDateTime = Date.parse(timestamp)
-
-    // 2. 14일 더하기
-    const expiryDateTime = creationDateTime + millisecondsOf2Week
-
-    // 3. 14일 더한 ms에서 오늘ms 빼기
-    let remainingTime = expiryDateTime - Date.now()
-
-    // 4-1. 뺀ms가 음수면? > 시간초과 > ms 를 파싱해서 초과된 시간으로 출력
-    // 4-2. 뺀ms가 양수면? ms를 남은시간으로 파싱해서 남은시간으로 출력
-
-    const numberOfHours = Math.abs(remainingTime) / 36e5;
-    const Days = Math.floor(numberOfHours / 24)
-    const Remainder = numberOfHours % 24
-    const Hours = Math.floor(Remainder)
-    const Minutes = Math.floor(60 * (Remainder - Hours))
-   
-    if (remainingTime > 0) {
-      if (Days) return `${Days}일 ${Hours}시간 남음`
-      if (Hours) return `${Hours}시간 ${Minutes}분 남음`
-      return `${Minutes}분 남음`
-    } else {
-      if (Days) return `${Days}일 ${Hours}시간 초과`
-      if (Hours) return `${Hours}시간 ${Minutes}분 초과`
-      return `${Minutes}분 초과`
-    }
-  }
-
+export default function CountDownBar({ postStatus }) {
+const {isExpired, now, expiryDateTime, remainingDateTime } = postStatus
   return (
     <View style={styles.expContainer}>
       <View style={styles.expAreaLeft}>
         <Progress.Bar
-          progress={(Math.abs(Date.now() - Date.parse(timestamp))) / (1000*60*60*24*14)}
+          progress={isExpired ? 1: now / expiryDateTime}
           height={8}
           width={null}
-          color={'#e79e44'}
+          color={isExpired ? Colors.red : Colors.orange}
           unfilledColor={'#eeeeee'}
           borderWidth={0}
         />
       </View>
       <View style={styles.expAreaRight}>
-        <Text style={styles.expText}>{this.getTimeDiff(timestamp)}</Text>
+        <Text style={[styles.expText, {color: isExpired ? Colors.red : Colors.orange}]}>{`${remainingDateTime.toString()} ${isExpired ? '초과' : '남음'}`}</Text>
       </View>
     </View>
   )
@@ -75,7 +44,6 @@ const styles = StyleSheet.create({
     marginLeft: '10%',
     fontSize: 12,
     fontWeight: '600',
-    color: '#dd9031',
     letterSpacing: 0,
   },
 })

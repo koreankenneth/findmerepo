@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, ScrollView, Image } from 'react-native'
 import FindMeItem from './Item'
-import { loadFindMe } from '../../../utils/api'
 import { setFindMe } from '../../../actions/findme'
 import { AppLoading } from 'expo'
+import { loadFindMe } from '../../../utils/api'
+import { getPostStatus } from '../../../utils/helper'
 
 class FindMeContainer extends Component {
   state = {
@@ -22,17 +23,30 @@ class FindMeContainer extends Component {
 
   render() {
     const { ready } = this.state
-    const { findme, navigation } = this.props
+    const { findme, page, navigation } = this.props
 
     if (ready === false) {
       return <AppLoading />
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.findMeList}>
+      <ScrollView contentContainerStyle={styles.findMeList}>
         <Image source={require('../../../assets/images/drawable-xxxhdpi/img_banner_findme.png')} style={styles.banner} />
-          {
-            Object.keys(findme).map((key) => {
+        {
+          Object.keys(findme)
+          .filter((key) => {
+              switch (page) {
+                case 'find':
+                  return !getPostStatus(findme[key]).isExpired
+                case 'notfound':
+                  return getPostStatus(findme[key]).isExpired
+                case 'found':
+                  return false
+                default:
+                  return true
+              }
+            })
+            .map((key) => {
               return (
                 <FindMeItem
                   index={key}
@@ -40,16 +54,17 @@ class FindMeContainer extends Component {
                 />
               )
             })
-          }
-        </ScrollView>
+        }
+      </ScrollView>
     )
   }
 }
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state, { page }) {
   return {
-    findme: state.findme
+    findme: state.findme,
+    page: page,
   }
 }
 
@@ -63,7 +78,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   findMeList: {
-    flex:1,
+    flex: 1,
     alignItems: 'center',
   }
 });

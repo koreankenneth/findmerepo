@@ -22,14 +22,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 5,
     paddingRight: '4%',
   },
   btnOrder: {
     flexDirection: 'row',
   },
   orderText: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#414141',
   },
   arrowDown: {

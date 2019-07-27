@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { colors } from '../../../utils/constants'
 import CountDownBar from '../common/CountDownBar'
-import { formatDateTime } from '../../../utils/helper'
+import { formatDateTime, getPostStatus } from '../../../utils/helper'
 
 
 class Item extends Component {
@@ -57,7 +57,9 @@ class Item extends Component {
             </View>
           </View>
           <View style={styles.countDownArea}>
-            <CountDownBar timestamp={findMeItem.creationDateTime} />
+            <CountDownBar 
+              postStatus={getPostStatus(findMeItem)}
+            />
           </View>
         </TouchableOpacity>
       </View>

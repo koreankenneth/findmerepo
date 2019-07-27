@@ -1,18 +1,29 @@
 
-export function getAgeOfPost (timestamp) {
-  const creationDateTime = Date.parse(timestamp)
+export function getTimeDiff(timestamp) {
+  const creationDateTime = new Date(timestamp)
   const numberOfHours = Math.abs(Date.now() - creationDateTime) / 36e5;
   const Days = Math.floor(numberOfHours / 24)
   const Remainder = numberOfHours % 24
   const Hours = Math.floor(Remainder)
   const Minutes = Math.floor(60 * (Remainder - Hours))
 
-  if (Days) return `${Days}일 전`
-  if (Hours) return `${Hours}시간 전`
-  return `${Minutes}분 전`
+  return {
+    days: Days,
+    hours: Hours,
+    Minutes: Minutes,
+    toString: () => {
+      if (Days) {
+        return `${Days}일 ${Hours}시간`
+      } else if (Hours) {
+        return `${Hours}시간 ${Minutes}분`
+      } else {
+        return `${Minutes}분`
+      }
+    }
+  }
 }
 
-export function formatDateTime (formatType, timestamp) {
+export function formatDateTime(formatType, timestamp) {
   const objDate = new Date(timestamp)
   const year = objDate.getFullYear()
   const month = objDate.getMonth()
@@ -28,4 +39,25 @@ export function formatDateTime (formatType, timestamp) {
       break
   }
   return result
+}
+
+export function getPostStatus(findMePost) {
+  const millisecondsOf1Day = 864e5 // 24 * 60 * 60 * 1000 = 86400000
+  const millisecondsOf2Week = millisecondsOf1Day * 14
+  const now = Date.now()
+
+  const creationDateTime = Date.parse(findMePost.creationDateTime)
+
+  const expiryDateTime = creationDateTime + millisecondsOf2Week
+
+  const remainingTime = expiryDateTime - now
+
+  return {
+    now: now,
+    creationDateTime: creationDateTime,
+    expiryDateTime: expiryDateTime,
+    isExpired: remainingTime <= 0,
+    remainingDateTime: getTimeDiff(expiryDateTime),
+    elapsedDateTime: getTimeDiff(creationDateTime),
+  }
 }
