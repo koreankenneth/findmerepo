@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
   },
   timestamp: {
     width: 83,
-    fontFamily: 'NotoSansCJKkr-Medium',
     fontSize: 12,
     color: '#a3a3a3',
     letterSpacing: 0,

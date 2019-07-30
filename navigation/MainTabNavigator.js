@@ -2,11 +2,14 @@ import React from 'react';
 import {
   createStackNavigator,
   createBottomTabNavigator,
+  BottomTabBar,
 } from 'react-navigation';
+import { Image } from 'react-native';
 
 import TabBarIcon from '../components/TabBarIcon';
-import FindMeMainScreen from '../screens/findme/MainScreen';
+import TabBarWritingIcon from '../components/TabBarWritingIcon';
 
+import FindMeMainScreen from '../screens/findme/MainScreen';
 import TrendScreen from '../screens/trend/TrendMainScreen';
 import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';
@@ -15,6 +18,8 @@ import MyPageScreen from '../screens/MyPageScreen';
 import FindMeDetail from '../screens/findme/DetailScreen';
 import TrendWriteScreen from '../screens/trend/TrendWriteScreen';
 
+import Colors from '../constants/Colors'
+
 const FindMeStack = createStackNavigator(
   {
     FindMe: FindMeMainScreen,
@@ -22,10 +27,10 @@ const FindMeStack = createStackNavigator(
   },
   {
     navigationOptions: ({ navigation }) => {
-      const tabBarLabel   = '파인드미'
-      const lastLocation  = navigation.state.routes.length -1
+      const tabBarLabel = '파인드미'
+      const lastLocation = navigation.state.routes.length - 1
       const tabBarVisible = navigation.state.routes[lastLocation].routeName === 'FindMeDetail' ? false : true
-      const tabBarIcon    = ({ focused }) => (
+      const tabBarIcon = ({ focused }) => (
         focused ? <TabBarIcon
           focused={focused}
           imageUri={require('../assets/images/icoMenuFindme_active.png')}
@@ -37,7 +42,7 @@ const FindMeStack = createStackNavigator(
           />
       )
       return {
-        tabBarLabel, 
+        tabBarLabel,
         tabBarVisible,
         tabBarIcon,
       }
@@ -47,7 +52,7 @@ const FindMeStack = createStackNavigator(
 
 const TrendStack = createStackNavigator({
   Trend: TrendScreen,
-  TrendWrite : TrendWriteScreen,
+  TrendWrite: TrendWriteScreen,
 });
 
 TrendStack.navigationOptions = {
@@ -56,6 +61,7 @@ TrendStack.navigationOptions = {
     focused ? <TabBarIcon
       focused={focused}
       imageUri={require('../assets/images/icoMenuLike_active.png')}
+      style={{paddingRight: 20}}
     />
       :
       <TabBarIcon
@@ -67,38 +73,26 @@ TrendStack.navigationOptions = {
 
 
 const WritingStack = createStackNavigator({
-    Writing: WritingScreen,
-  },
+  Writing: WritingScreen,
+},
   {
     navigationOptions: ({ navigation }) => {
-      const tabBarLabel   = '글쓰기';
+      const tabBarLabel = ' ';
       const tabBarVisible = false;
-      const tabBarIcon    = ({ focused }) => (
-          <TabBarIcon
+      const tabBarIcon = ({ focused }) => (
+        <TabBarWritingIcon
           focused={focused}
           imageUri={require('../assets/images/icoMenuWrite.png')}
         />
       )
       return {
-        tabBarLabel, 
+        tabBarLabel,
         tabBarVisible,
         tabBarIcon,
       }
     }
   }
-);
-/*
-WritingStack.navigationOptions = {
-  tabBarLabel: '글쓰기',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      imageUri={require('../assets/images/icoMenuWrite.png')}
-    />
-  ),
-  visible: false
-};
-*/
+)
 
 const RankingStack = createStackNavigator({
   Ranking: RankingScreen,
@@ -140,19 +134,41 @@ export default createBottomTabNavigator({
 
 }, {
     tabBarOptions: {
-      showLabel: true,
-      showIcon: true,
       style: {
-        backgroundColor: 'black',
-        height: 61,
+        borderWidth: 0,
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        right: 0,
+        left: 0,
+        bottom: 0,
       },
       labelStyle: {
-        fontSize: 9.3,
-        color: 'white',
-        marginBottom: 9,
+        fontSize: 11,
+        color: Colors.white,
       },
-      tabStyle: {}
+      tabStyle: {
+        borderWidth: 0,
+        backgroundColor: 'transparent',
+      }
+    },
+
+    tabBarComponent: props => {
+      return (
+        <React.Fragment>
+          <Image
+            source={require('../assets/images/drawable-xxxhdpi/menu_bg.png')}
+            style={{
+              height: 70, 
+              width: '100%', 
+              marginBottom: 20, 
+              backgroundColor: 'transparent',
+              borderWidth: 0,
+            }}
+          />
+          <BottomTabBar {...props} />
+        </React.Fragment>
+
+      )
     }
   });
-
 
