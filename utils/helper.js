@@ -1,9 +1,10 @@
 
 export function getTimeDiff(timestamp) {
   const creationDateTime = new Date(timestamp)
-  const numberOfHours = Math.abs(Date.now() - creationDateTime) / 36e5;
-  const Days = Math.floor(numberOfHours / 24)
-  const Remainder = numberOfHours % 24
+  const now = Date.now() + 36e5*9 //Timezone: + 9:00 (Seoul)
+  const numberOfHours = Math.abs(now - creationDateTime) / 36e5;
+  const Days = numberOfHours < 1 ? 0 : Math.floor(numberOfHours / 24)
+  const Remainder = numberOfHours < 1 ? numberOfHours : numberOfHours % 24
   const Hours = Math.floor(Remainder)
   const Minutes = Math.floor(60 * (Remainder - Hours))
 
@@ -12,8 +13,12 @@ export function getTimeDiff(timestamp) {
     hours: Hours,
     Minutes: Minutes,
     toString: () => {
-      if (Days) {
+      if (Days > 2) {
+        return `${Days}일`
+      } else if (Days) {
         return `${Days}일 ${Hours}시간`
+      } else if (Hours > 9) {
+        return `${Hours}시간`
       } else if (Hours) {
         return `${Hours}시간 ${Minutes}분`
       } else {
@@ -43,12 +48,12 @@ export function formatDateTime(formatType, timestamp) {
 
 export function getPostStatus(findMePost) {
   const millisecondsOf1Day = 864e5 // 24 * 60 * 60 * 1000 = 86400000
-  const millisecondsOf2Week = millisecondsOf1Day * 14
-  const now = Date.now()
+  const millisecondsOf2Weeks = millisecondsOf1Day * 14
+  const now = Date.now() + 36e5*9 //Timezone: + 9:00 (Seoul)
 
   const creationDateTime = Date.parse(findMePost.creationDateTime)
 
-  const expiryDateTime = creationDateTime + millisecondsOf2Week
+  const expiryDateTime = creationDateTime + millisecondsOf2Weeks
 
   const remainingTime = expiryDateTime - now
 
@@ -57,7 +62,10 @@ export function getPostStatus(findMePost) {
     creationDateTime: creationDateTime,
     expiryDateTime: expiryDateTime,
     isExpired: remainingTime <= 0,
+    remainingTimeMS: remainingTime,
     remainingDateTime: getTimeDiff(expiryDateTime),
     elapsedDateTime: getTimeDiff(creationDateTime),
+    millisecondsOf1Day,
+    millisecondsOf2Weeks,
   }
 }

@@ -4,12 +4,12 @@ import * as Progress from 'react-native-progress'
 import Colors from '../../../constants/Colors'
 
 export default function CountDownBar({ postStatus }) {
-const {isExpired, now, expiryDateTime, remainingDateTime } = postStatus
+const {isExpired, remainingTimeMS, remainingDateTime, millisecondsOf2Weeks } = postStatus
   return (
     <View style={styles.expContainer}>
       <View style={styles.expAreaLeft}>
         <Progress.Bar
-          progress={isExpired ? 1: now / expiryDateTime}
+          progress={isExpired ? 1: remainingTimeMS / millisecondsOf2Weeks}
           height={8}
           width={null}
           color={isExpired ? Colors.red : Colors.orange}
