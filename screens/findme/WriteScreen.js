@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet, Alert } from 'react-native'
+import Intro from '../../components/findme/write/Intro'
 import Header from '../../components/findme/write/Header'
 import Body1 from '../../components/findme/write/Body1'
 import Body2 from '../../components/findme/write/Body2'
@@ -15,6 +16,7 @@ import BrandSearch from '../../components/findme/write/BrandSearch';
 
 class WriteScreen extends Component {
   state = {
+    displayType: 'undefined',
     page: 1,
     isOnBrandSearch: false,
     ready: false,
@@ -69,6 +71,11 @@ class WriteScreen extends Component {
     this.setState({ isOnBrandSearch: false })
   }
 
+  setDisplayType = (displayType) => {
+    this.onChange('Intro', 'displayType', displayType)
+    this.setState({ displayType: displayType })
+  }
+
   submit = () => {
     Alert.alert(
       'Alert Title',
@@ -93,7 +100,7 @@ class WriteScreen extends Component {
   }
 
   render() {
-    const { ready, page, isOnBrandSearch } = this.state
+    const { ready, page, isOnBrandSearch, displayType } = this.state
 
     if (ready === false) {
       return <AppLoading />
@@ -147,63 +154,84 @@ class WriteScreen extends Component {
           />
         break
     }
-
+    
     return (
       <View style={styles.background}>
         <View style={styles.blankSpace} />
         {
-          isOnBrandSearch
+          displayType === 'undefined'
             ? (
-              <View style={styles.container}>
-                <View style={styles.brandHeader}>
-                  <Header
-                    page={this.state.page}
-                    title={'브랜드 찾기'}
-                    isOnBrandSearch={isOnBrandSearch}
-                    goBack={this.goBack}
-                    close={this.close}
-                  />
-                </View>
-
-                <View style={styles.brandBody}>
-                  {body}
-                </View>
-              </View>
-            )
-            : (
 
               <View style={styles.container}>
-                <View style={styles.header}>
-                  <Header
-                    page={this.state.page}
-                    title={'공개 찾기'}
-                    isOnBrandSearch={isOnBrandSearch}
-                    goBack={this.goBack}
-                    close={this.close}
-                  />
-                </View>
+              <View style={styles.brandHeader}>
+                <Header
+                  page={page}
+                  title={'찾아주세요'}
+                  isOnBrandSearch={isOnBrandSearch}
+                  goBack={this.goBack}
+                  close={this.close}
+                />
+              </View>
 
-                <View style={styles.nav}>
-                  <Nav
-                    page={this.state.page}
-                    goPage={this.goPage}
-                  />
-                </View>
-
-                <View style={styles.body}>
-                  {body}
-                </View>
-
-                <View style={styles.footer}>
-                  <Footer
-                    goNext={this.goNext}
-                    isActive={true}
-                    isFinal={this.state.page === 4}
-                    submit={this.submit}
-                  />
-                </View>
+              <View style={styles.brandBody}>
+                <Intro 
+                  setDisplayType={this.setDisplayType}
+                />
+              </View>
               </View>
             )
+            : isOnBrandSearch
+                ? (
+                  <View style={styles.container}>
+                    <View style={styles.brandHeader}>
+                      <Header
+                        page={page}
+                        title={'브랜드 찾기'}
+                        isOnBrandSearch={isOnBrandSearch}
+                        goBack={this.goBack}
+                        close={this.close}
+                      />
+                    </View>
+
+                    <View style={styles.brandBody}>
+                      {body}
+                    </View>
+                  </View>
+                )
+                : (
+
+                  <View style={styles.container}>
+                    <View style={styles.header}>
+                      <Header
+                        page={page}
+                        title={displayType === 'public' ? '공개 찾기' : '비공개 찾기'}
+                        isOnBrandSearch={isOnBrandSearch}
+                        goBack={this.goBack}
+                        close={this.close}
+                      />
+                    </View>
+
+                    <View style={styles.nav}>
+                      <Nav
+                        page={page}
+                        goPage={this.goPage}
+                      />
+                    </View>
+
+                    <View style={styles.body}>
+                      {body}
+                    </View>
+
+                    <View style={styles.footer}>
+                      <Footer
+                        goNext={this.goNext}
+                        isActive={true}
+                        isFinal={page === 4}
+                        submit={this.submit}
+                      />
+                    </View>
+                  </View>
+                )
         }
       </View>
     )
