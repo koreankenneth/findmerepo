@@ -7,22 +7,22 @@ import { AntDesign } from '@expo/vector-icons'
 const textPlaceholder = `예) 2019년, FW, SS 등 제품을 찾을 때 유의사항이 있으면 기재해주세요. 디테일한 정보는 제품을 찾는 데 많은 도움이 될 수있어요.`
 
 class Body4 extends Component {
-  state = {
-    text: '',
-  }
+
   render() {
+    const { text } = this.props.Body4
+    
     return (
       <View style={styles.container}>
         <View style={styles.textArea}>
           <Text style={styles.guide}>더 알아야 할 내용이 있나요?</Text>
           <View style={styles.contents}>
             <TextInput
-              style={styles.textinput}
+              style={styles.textInput}
               multiline={true}
               placeholder={textPlaceholder}
               placeholderTextColor="#c2c2c2"
-              onChangeText={(text) => this.setState({ text })}
-              value={this.state.text}
+              onChangeText={(text) => this.props.onChange('Body4', 'text', text)}
+              value={text === 'undefined' ? '' : text}
             />
           </View>
         </View>
@@ -87,6 +87,7 @@ class Body4 extends Component {
 
 function mapStateToProps(state) {
   return {
+    Body4: state.app.findMeDraft.Body4,
   }
 }
 
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textinput: {
+  textInput: {
     width: '100%',
     height: 200,
     fontSize: 14,

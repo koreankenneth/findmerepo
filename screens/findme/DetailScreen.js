@@ -5,6 +5,7 @@ import { AppLoading } from 'expo'
 import Header from '../../components/findme/detail/Header'
 import Body from '../../components/findme/detail/Body'
 import Comment from '../../components/findme/detail/Comment'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class DetailScreen extends Component {
   state = {
@@ -58,9 +59,15 @@ export default class DetailScreen extends Component {
           <View style={styles.control}>
             <Text>삭제하기</Text>
           </View>
-          <View style={styles.control}>
+          <TouchableOpacity 
+            style={styles.control}
+            onPress={() => this.props.navigation.navigate(
+              'FindMeReport',
+              { id: postDetail.id }
+            )}
+          >
             <Text>게시글 신고하기</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     )

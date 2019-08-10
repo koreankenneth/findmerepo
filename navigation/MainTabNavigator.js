@@ -10,12 +10,14 @@ import TabBarIcon from '../components/TabBarIcon';
 import TabBarWritingIcon from '../components/TabBarWritingIcon';
 
 import FindMeMainScreen from '../screens/findme/MainScreen';
+import FindMeDetailScreen from '../screens/findme/DetailScreen';
+import FindMeReportScreen from '../screens/findme/ReportScreen';
+
 import TrendScreen from '../screens/trend/TrendMainScreen';
 import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 
-import FindMeDetail from '../screens/findme/DetailScreen';
 import TrendWriteScreen from '../screens/trend/TrendWriteScreen';
 
 import Colors from '../constants/Colors'
@@ -23,13 +25,15 @@ import Colors from '../constants/Colors'
 const FindMeStack = createStackNavigator(
   {
     FindMe: FindMeMainScreen,
-    FindMeDetail: FindMeDetail,
+    FindMeDetail: FindMeDetailScreen,
+    FindMeReport: FindMeReportScreen,
   },
   {
     navigationOptions: ({ navigation }) => {
       const tabBarLabel = '파인드미'
       const lastLocation = navigation.state.routes.length - 1
-      const tabBarVisible = navigation.state.routes[lastLocation].routeName === 'FindMeDetail' ? false : true
+      const { routeName } = navigation.state.routes[lastLocation]
+      const tabBarVisible = routeName === 'FindMeDetail' || routeName === 'FindMeReport' ? false : true
       const tabBarIcon = ({ focused }) => (
         focused ? <TabBarIcon
           focused={focused}
