@@ -61,7 +61,7 @@ class ReportScreen extends Component {
             <View style={styles.headerMid}>
               <Text style={styles.headerText}>
                 신고하기
-          </Text>
+              </Text>
             </View>
             <View style={styles.headerRight}>
               <AntDesign style={styles.headerIcon}
