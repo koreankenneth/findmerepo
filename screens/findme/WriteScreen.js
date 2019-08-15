@@ -9,6 +9,7 @@ import Body3 from '../../components/findme/write/Body3'
 import Body4 from '../../components/findme/write/Body4'
 import Nav from '../../components/findme/write/Nav'
 import Footer from '../../components/findme/write/Footer'
+import FinalConfirm from '../../components/findme/write/FinalConfirm'
 import { writeFindMeDraft } from '../../actions/app'
 import { setFindMe } from '../../actions/findme'
 import { initFindMeDraft, postFindMe, loadFindMe } from '../../utils/api'
@@ -19,8 +20,9 @@ class WriteScreen extends Component {
   state = {
     displayType: 'undefined',
     page: 1,
-    isOnBrandSearch: false,
     ready: false,
+    isOnBrandSearch: false,
+    isOnFinalConfirm: false,
   }
 
   componentDidMount() {
@@ -77,42 +79,29 @@ class WriteScreen extends Component {
     this.setState({ displayType: displayType })
   }
 
+  displayFinalConfirm = (isOnFinalConfirm) => {
+    this.setState({ isOnFinalConfirm: isOnFinalConfirm })
+  }
+
   submit = () => {
     const { findMeDraft, dispatch } = this.props
-    Alert.alert(
-      '등록하기',
-      '게시물을 등록하시겠습니까?',
-      [
-        {
-          text: 'OK',
-          onPress: () => {
-            postFindMe(findMeDraft)
-              .then(() => {
-                initFindMeDraft()
-                  .then((draft) => {
-                    dispatch(writeFindMeDraft(draft))
-                  })
-                  .then(() =>
-                    this.setState({
-                      displayType: 'undefined',
-                      page: 1,
-                      isOnBrandSearch: false,
-                    })
-                  )
-                loadFindMe()
-                  .then((findme) => dispatch(setFindMe(findme)))
-              })
-            this.close()
-          },
-          style: 'default'
-        },
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-      ],
-      { cancelable: true },
-    )
+    postFindMe(findMeDraft)
+      .then(() => {
+        initFindMeDraft()
+          .then((draft) => {
+            dispatch(writeFindMeDraft(draft))
+          })
+          .then(() =>
+            this.setState({
+              displayType: 'undefined',
+              page: 1,
+              isOnBrandSearch: false,
+            })
+          )
+        loadFindMe()
+          .then((findme) => dispatch(setFindMe(findme)))
+      })
+    this.close()
   }
 
   close = () => {
@@ -250,11 +239,19 @@ class WriteScreen extends Component {
                       goNext={this.goNext}
                       isActive={true}
                       isFinal={page === 4}
-                      submit={this.submit}
+                      submit={() => this.displayFinalConfirm(true)}
                     />
                   </View>
                 </View>
               )
+        }
+        {
+          this.state.isOnFinalConfirm
+          && 
+          <FinalConfirm
+            submit={this.submit}
+            close={() => this.displayFinalConfirm(false)}
+          />
         }
       </View>
     )
