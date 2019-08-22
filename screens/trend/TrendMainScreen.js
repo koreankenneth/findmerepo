@@ -1,25 +1,46 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { View,  Text, } from 'react-native';
+import { AppState, Animated, View,  Text, } from 'react-native';
+import { connect } from 'react-redux'
+import { setCurrentTap } from '../../actions/app'
 import ParallaxScrollView from '../../components/ParallaxScroll';
 import TrendContainer from '../../components/trend/main/TrendContainer';
 import TrendTopMenu from '../../components/trend/main/TrendTopMenu';
 import TrendHeader from '../../components/trend/main/TrendHeader';
 import TrendSearch from '../../components/trend/main/TrendSearch';
 import TrendBanner from '../../components/trend/main/TrendBanner';
+import FloatingButton from '../../components/findme/common/FloatingButton'
 
 const STICKY_HEADER_HEIGHT = 41;
 
-export default class TrendScreen extends Component {
+const CURRENT_TAP = 'Trend'
+
+class TrendScreen extends Component {
+  state = {
+    appState: AppState.currentState
+  }
   constructor(props) {
     super(props);
     
-    //this.props.navigation.state.routeName = "TrendWriteScreen";
     this.state = {
       viewFilter: 0,
     };
     this.onPressViewFilter = this.onPressViewFilter.bind(this);
   }
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = (nextAppState) => {
+    console.log('Trend MAin App has come to the foreground!')
+    console.log(this.state.appState)
+
+    this.setState({appState: nextAppState});
+  };
 
   onPressViewFilter = (itemIdx) => {
     if(itemIdx != this.state.viewFilter)
@@ -31,6 +52,9 @@ export default class TrendScreen extends Component {
   }  
 
   render() {
+    const { navigation } = this.props
+
+
     return (
       <View style={styles.container}>
         <ParallaxScrollView
@@ -73,6 +97,19 @@ export default class TrendScreen extends Component {
           
 
         </ParallaxScrollView>
+        <Animated.View                 // Special animatable View
+          style={[
+            {
+              opacity: this.state.fadeAnim,         // Bind opacity to animated value
+            }
+          ]
+          }
+        >
+          <FloatingButton
+            screen={CURRENT_TAP}
+            navigation={navigation}
+          />
+        </Animated.View>
       </View>
     );
   }
@@ -86,6 +123,14 @@ TrendScreen.navigationOptions = {
   }
   
 }
+
+function mapStateToProps(state) {
+  return {
+  }
+}
+
+export default connect(mapStateToProps)(TrendScreen)
+
 
 const styles = StyleSheet.create({
   container: {

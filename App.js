@@ -49,6 +49,7 @@ async function loadResourcesAsync() {
     ]),Font.loadAsync({
       'Oswald-Light': require('./assets/fonts/Oswald-Light.ttf'),
       'Oswald-ExtraLight': require('./assets/fonts/Oswald-ExtraLight.ttf'),
+      'NotoSansCJKkr-Medium': require('./assets/fonts/NotoSansCJKkr-Medium.otf'),
     })
   ]);
 }

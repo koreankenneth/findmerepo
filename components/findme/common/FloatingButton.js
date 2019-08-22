@@ -8,7 +8,7 @@ export default class FloatingButton extends React.Component {
       <TouchableOpacity
         style={styles.floatingButton}
         onPress={() => this.props.navigation.navigate(
-          'FindMeWriting',
+          this.props.screen + 'Writing',
         )}
       >
 

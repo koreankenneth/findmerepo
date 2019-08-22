@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Animated, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { AppState, Animated, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { setCurrentTap } from '../../actions/app'
 import { colors } from '../../utils/constants'
 import ParallaxScrollView from '../../components/ParallaxScroll'
@@ -11,7 +11,7 @@ import List from '../../components/findme/main/List'
 import FloatingButton from '../../components/findme/common/FloatingButton'
 
 
-const CURRENT_TAP = 'findme'
+const CURRENT_TAP = 'FindMe'
 const HEADER_HEIGHT = 70
 const STICKY_HEADER_HEIGHT = 41
 let PARALLAX_HEADER_HEIGHT = HEADER_HEIGHT + STICKY_HEADER_HEIGHT;
@@ -45,9 +45,11 @@ class FindMeScreen extends Component {
 
 
   componentDidMount() {
+    
     const { dispatch } = this.props
     dispatch(setCurrentTap(CURRENT_TAP))
   }
+
 
   goPage = (page) => {
     this.setState({ page: page })
@@ -56,6 +58,7 @@ class FindMeScreen extends Component {
   render() {
     const { page } = this.state
     const { navigation } = this.props
+
 
     return (
       <View style={styles.container}>
@@ -103,6 +106,7 @@ class FindMeScreen extends Component {
           }
         >
           <FloatingButton
+            screen={CURRENT_TAP}
             navigation={navigation}
           />
         </Animated.View>

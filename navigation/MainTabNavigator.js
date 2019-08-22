@@ -9,9 +9,10 @@ import TabBarIcon from '../components/TabBarIcon';
 import FindMeMainScreen from '../screens/findme/MainScreen';
 import FindMeDetailScreen from '../screens/findme/DetailScreen';
 import FindMeReportScreen from '../screens/findme/ReportScreen';
+import FindMeWriteScreen from '../screens/findme/WriteScreen';
 
-import TrendScreen from '../screens/trend/TrendMainScreen';
-import WritingScreen from '../screens/WritingScreen';
+import TrendMainScreen from '../screens/trend/TrendMainScreen';
+//import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 
@@ -23,7 +24,7 @@ const FindMeStack = createStackNavigator(
     FindMe: FindMeMainScreen,
     FindMeDetail: FindMeDetailScreen,
     FindMeReport: FindMeReportScreen,
-    FindMeWriting: WritingScreen,
+    FindMeWriting: FindMeWriteScreen,
   },
   {
     navigationOptions: ({ navigation }) => {
@@ -54,6 +55,8 @@ const FindMeStack = createStackNavigator(
 )
 const TrendStack = createStackNavigator({
   Trend: TrendMainScreen,
+  
+  TrendWriting: TrendWriteScreen,
 });
 
 TrendStack.navigationOptions = {
@@ -62,18 +65,19 @@ TrendStack.navigationOptions = {
     focused ? <TabBarIcon
                 focused={focused}
                 imageUri={require('../assets/images/icoMenuLike_active.png')}
+                text={'취향저격'}
               />
               :
               <TabBarIcon
                 focused={focused}
                 imageUri={require('../assets/images/icoMenuLike_inactive.png')}
+                text={'취향저격'}
               />
   )
 };
-
+/*
 const WritingStack = createStackNavigator({
   Writing: WritingScreen,
-  Camera: CameraScreen,
 });
 
 WritingStack.navigationOptions = {
@@ -84,7 +88,7 @@ WritingStack.navigationOptions = {
       imageUri= {require('../assets/images/icoMenuWrite.png')}
     />
   ),
-};
+};*/
 
 
 const RankingStack = createStackNavigator({
@@ -96,7 +100,8 @@ RankingStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      imageUri= {require('../assets/images/icoMenuRanking.png')}
+      imageUri= {require('../assets/images/drawable-xxxhdpi/ico_menu_shop.png')}
+      text={'골드키샵'}
     />
   ),
 };
@@ -113,6 +118,7 @@ MyPageStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       imageUri= {require('../assets/images/icoMenuMy.png')}
+      text={'내페이지'}
     />
   ),
 };
@@ -135,7 +141,7 @@ export default createBottomTabNavigator({
     labelStyle: {
         fontSize: 9.3,
         color: 'white',
-        marginBottom : 9,
+        marginBottom : 3,
     },
     tabStyle: {}
   }

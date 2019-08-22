@@ -34,6 +34,25 @@ class TrendWriteScreen extends Component {
 
   }
 
+  fadeIn = () => {
+    Animated.timing(
+      this.state.fadeAnim,
+      {
+        toValue: 0,
+        duration: 200,
+      }
+    ).start();
+  }
+
+  fadeOut = () => {
+    Animated.timing(
+      this.state.fadeAnim,
+      {
+        toValue: 1,
+        duration: 500,
+      }
+    ).start();
+  }
   
   componentDidMount() {
     const { dispatch } = this.props
