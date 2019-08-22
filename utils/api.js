@@ -38,6 +38,10 @@ export async function initFindMeDraft() {
   return findMeDraft
 }
 
+export async function initTrendDraft() {
+  return trendDraft
+}
+
 export async function loadBrands() {
   return brands
 }
@@ -107,6 +111,7 @@ const brands = [
     keyWords: '타미 힐피거, Tommy Hilfiger, 토미',
   },
 ]
+
 const findMeDraft = {
   Body1: {
     category: 'undefined',
@@ -123,6 +128,22 @@ const findMeDraft = {
   Body4: {
   },
 }
+
+const trendDraft = {
+  TrendWriteBody1: {
+    title: 'undefined',
+    contents: 'undefined',
+  },
+  TrendWriteBody2: {
+    image: 'undefined',
+  },
+  TrendWriteBody3: {
+    selectedCategories: new Array(),
+  },
+  TrendWriteBody4: {
+  },
+}
+
 const dummyData = {
   FM2019030100001: {
     id: 'FM2019030100001',
