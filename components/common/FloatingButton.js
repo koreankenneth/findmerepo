@@ -13,7 +13,7 @@ export default class FloatingButton extends React.Component {
       >
 
         <Image
-          source={require('../../../assets/images/icoMenuWrite.png')}
+          source={require('../../assets/images/icoMenuWrite.png')}
           style={{ marginBottom: 0, width: 25, height: 25, resizeMode: 'cover' }}
         />
       </TouchableOpacity>

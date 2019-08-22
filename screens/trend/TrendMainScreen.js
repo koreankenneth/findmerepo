@@ -9,7 +9,7 @@ import TrendTopMenu from '../../components/trend/main/TrendTopMenu';
 import TrendHeader from '../../components/trend/main/TrendHeader';
 import TrendSearch from '../../components/trend/main/TrendSearch';
 import TrendBanner from '../../components/trend/main/TrendBanner';
-import FloatingButton from '../../components/findme/common/FloatingButton'
+import FloatingButton from '../../components/common/FloatingButton'
 
 const STICKY_HEADER_HEIGHT = 41;
 

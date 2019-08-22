@@ -8,7 +8,7 @@ import Header from '../../components/findme/main/Header'
 import TopNav from '../../components/findme/main/TopNav'
 import ListFilter from '../../components/findme/main/ListFilter'
 import List from '../../components/findme/main/List'
-import FloatingButton from '../../components/findme/common/FloatingButton'
+import FloatingButton from '../../components/common/FloatingButton'
 
 
 const CURRENT_TAP = 'FindMe'

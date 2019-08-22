@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   subjectArea: {
     marginTop: 30,
-    marginBottom: 100,
+    marginBottom: 80,
   },
   title: {
     color: Colors.orange,
