@@ -7,42 +7,57 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import FindMeMainScreen from '../screens/findme/MainScreen';
-// import Test from '../screens/findme/Test';
+import FindMeDetailScreen from '../screens/findme/DetailScreen';
+import FindMeReportScreen from '../screens/findme/ReportScreen';
 
-import TrendMainScreen from '../screens/trend/TrendMainScreen';
-import WritingScreen from '../screens/trend/TrendWriteScreen';
+import TrendScreen from '../screens/trend/TrendMainScreen';
+import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 
-import FindMeDetail from '../screens/findme/DetailScreen';
+import TrendWriteScreen from '../screens/trend/TrendWriteScreen';
 import CameraScreen from '../components/common/CameraScreen';
 
-const FindMeStack = createStackNavigator({
-  FindMe: FindMeMainScreen,
-  FindMeDetail: FindMeDetail,
-});
-
-FindMeStack.navigationOptions = {
-  tabBarLabel: '파인드미',
-  tabBarIcon: ({ focused }) => (
-    focused ? <TabBarIcon
-                focused={focused}
-                imageUri={require('../assets/images/icoMenuFindme_active.png')}
-              />
-              :
-              <TabBarIcon
-                focused={focused}
-                imageUri={require('../assets/images/icoMenuFindme_inactive.png')}
-              />
-  )
-};
-
+const FindMeStack = createStackNavigator(
+  {
+    FindMe: FindMeMainScreen,
+    FindMeDetail: FindMeDetailScreen,
+    FindMeReport: FindMeReportScreen,
+    FindMeWriting: WritingScreen,
+  },
+  {
+    navigationOptions: ({ navigation }) => {
+      const tabBarLabel = ' '
+      const lastLocation = navigation.state.routes.length - 1
+      const { routeName } = navigation.state.routes[lastLocation]
+      const tabBarVisible = routeName === 'FindMeDetail' || routeName === 'FindMeReport' ? false : true
+      const tabBarIcon = ({ focused }) => (
+        focused ? <TabBarIcon
+          focused={focused}
+          imageUri={require('../assets/images/icoMenuFindme_active.png')}
+          text={'파인드미'}
+        />
+          :
+          <TabBarIcon
+            focused={focused}
+            imageUri={require('../assets/images/icoMenuFindme_inactive.png')}
+            text={'파인드미'}
+          />
+      )
+      return {
+        tabBarLabel,
+        tabBarVisible,
+        tabBarIcon,
+      }
+    }
+  }
+)
 const TrendStack = createStackNavigator({
   Trend: TrendMainScreen,
 });
 
 TrendStack.navigationOptions = {
-  tabBarLabel: '취향저격',
+  tabBarLabel: ' ',
   tabBarIcon: ({ focused }) => (
     focused ? <TabBarIcon
                 focused={focused}
@@ -77,7 +92,7 @@ const RankingStack = createStackNavigator({
 });
 
 RankingStack.navigationOptions = {
-  tabBarLabel: '랭킹',
+  tabBarLabel: ' ',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -93,7 +108,7 @@ const MyPageStack = createStackNavigator({
 });
 
 MyPageStack.navigationOptions = {
-  tabBarLabel: '내페이지',
+  tabBarLabel: ' ',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -106,7 +121,6 @@ MyPageStack.navigationOptions = {
 export default createBottomTabNavigator({
   FindMeStack,
   TrendStack,
-  WritingStack,
   RankingStack,
   MyPageStack,
 

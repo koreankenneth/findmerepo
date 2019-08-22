@@ -9,8 +9,10 @@ import Body3 from '../../components/findme/write/Body3'
 import Body4 from '../../components/findme/write/Body4'
 import Nav from '../../components/findme/write/Nav'
 import Footer from '../../components/findme/write/Footer'
+import FinalConfirm from '../../components/findme/write/FinalConfirm'
 import { writeFindMeDraft } from '../../actions/app'
-import { initFindMeDraft } from '../../utils/api'
+import { setFindMe } from '../../actions/findme'
+import { initFindMeDraft, postFindMe, loadFindMe } from '../../utils/api'
 import { AppLoading } from 'expo'
 import BrandSearch from '../../components/findme/write/BrandSearch';
 
@@ -18,8 +20,9 @@ class WriteScreen extends Component {
   state = {
     displayType: 'undefined',
     page: 1,
-    isOnBrandSearch: false,
     ready: false,
+    isOnBrandSearch: false,
+    isOnFinalConfirm: false,
   }
 
   componentDidMount() {
@@ -76,20 +79,29 @@ class WriteScreen extends Component {
     this.setState({ displayType: displayType })
   }
 
+  displayFinalConfirm = (isOnFinalConfirm) => {
+    this.setState({ isOnFinalConfirm: isOnFinalConfirm })
+  }
+
   submit = () => {
-    Alert.alert(
-      'Alert Title',
-      'My Alert Msg',
-      [
-        { text: 'OK', onPress: () => console.log('OK Pressed') },
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-      ],
-      { cancelable: false },
-    )
+    const { findMeDraft, dispatch } = this.props
+    postFindMe(findMeDraft)
+      .then(() => {
+        initFindMeDraft()
+          .then((draft) => {
+            dispatch(writeFindMeDraft(draft))
+          })
+          .then(() =>
+            this.setState({
+              displayType: 'undefined',
+              page: 1,
+              isOnBrandSearch: false,
+            })
+          )
+        loadFindMe()
+          .then((findme) => dispatch(setFindMe(findme)))
+      })
+    this.close()
   }
 
   close = () => {
@@ -154,7 +166,7 @@ class WriteScreen extends Component {
           />
         break
     }
-    
+
     return (
       <View style={styles.background}>
         <View style={styles.blankSpace} />
@@ -163,75 +175,83 @@ class WriteScreen extends Component {
             ? (
 
               <View style={styles.container}>
-              <View style={styles.brandHeader}>
-                <Header
-                  page={page}
-                  title={'찾아주세요'}
-                  isOnBrandSearch={isOnBrandSearch}
-                  goBack={this.goBack}
-                  close={this.close}
-                />
-              </View>
+                <View style={styles.brandHeader}>
+                  <Header
+                    page={page}
+                    title={'찾아주세요'}
+                    isOnBrandSearch={isOnBrandSearch}
+                    goBack={this.goBack}
+                    close={this.close}
+                  />
+                </View>
 
-              <View style={styles.brandBody}>
-                <Intro 
-                  setDisplayType={this.setDisplayType}
-                />
-              </View>
+                <View style={styles.brandBody}>
+                  <Intro
+                    setDisplayType={this.setDisplayType}
+                  />
+                </View>
               </View>
             )
             : isOnBrandSearch
-                ? (
-                  <View style={styles.container}>
-                    <View style={styles.brandHeader}>
-                      <Header
-                        page={page}
-                        title={'브랜드 찾기'}
-                        isOnBrandSearch={isOnBrandSearch}
-                        goBack={this.goBack}
-                        close={this.close}
-                      />
-                    </View>
-
-                    <View style={styles.brandBody}>
-                      {body}
-                    </View>
+              ? (
+                <View style={styles.container}>
+                  <View style={styles.brandHeader}>
+                    <Header
+                      page={page}
+                      title={'브랜드 찾기'}
+                      isOnBrandSearch={isOnBrandSearch}
+                      goBack={this.goBack}
+                      close={this.close}
+                    />
                   </View>
-                )
-                : (
 
-                  <View style={styles.container}>
-                    <View style={styles.header}>
-                      <Header
-                        page={page}
-                        title={displayType === 'public' ? '공개 찾기' : '비공개 찾기'}
-                        isOnBrandSearch={isOnBrandSearch}
-                        goBack={this.goBack}
-                        close={this.close}
-                      />
-                    </View>
-
-                    <View style={styles.nav}>
-                      <Nav
-                        page={page}
-                        goPage={this.goPage}
-                      />
-                    </View>
-
-                    <View style={styles.body}>
-                      {body}
-                    </View>
-
-                    <View style={styles.footer}>
-                      <Footer
-                        goNext={this.goNext}
-                        isActive={true}
-                        isFinal={page === 4}
-                        submit={this.submit}
-                      />
-                    </View>
+                  <View style={styles.brandBody}>
+                    {body}
                   </View>
-                )
+                </View>
+              )
+              : (
+
+                <View style={styles.container}>
+                  <View style={styles.header}>
+                    <Header
+                      page={page}
+                      title={displayType === 'public' ? '공개 찾기' : '비공개 찾기'}
+                      isOnBrandSearch={isOnBrandSearch}
+                      goBack={this.goBack}
+                      close={this.close}
+                    />
+                  </View>
+
+                  <View style={styles.nav}>
+                    <Nav
+                      page={page}
+                      goPage={this.goPage}
+                    />
+                  </View>
+
+                  <View style={styles.body}>
+                    {body}
+                  </View>
+
+                  <View style={styles.footer}>
+                    <Footer
+                      goNext={this.goNext}
+                      isActive={true}
+                      isFinal={page === 4}
+                      submit={() => this.displayFinalConfirm(true)}
+                    />
+                  </View>
+                </View>
+              )
+        }
+        {
+          this.state.isOnFinalConfirm
+          && 
+          <FinalConfirm
+            submit={this.submit}
+            close={() => this.displayFinalConfirm(false)}
+          />
         }
       </View>
     )
