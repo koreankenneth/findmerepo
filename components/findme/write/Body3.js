@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
   container: {
   },
   subjectArea: {
-    marginTop: 20,
-    marginBottom: 10,
+    marginTop: 30,
+    marginBottom: 80,
   },
   title: {
     color: Colors.orange,

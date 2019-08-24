@@ -49,9 +49,11 @@ async function loadResourcesAsync() {
     ]),Font.loadAsync({
       'Oswald-Light': require('./assets/fonts/Oswald-Light.ttf'),
       'Oswald-ExtraLight': require('./assets/fonts/Oswald-ExtraLight.ttf'),
+      'NotoSansCJKkr-Medium': require('./assets/fonts/NotoSansCJKkr-Medium.otf'),
     })
   ]);
 }
+
 
 function handleLoadingError(error) {
   // In this case, you might want to report the error to your error reporting

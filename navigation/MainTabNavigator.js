@@ -1,41 +1,30 @@
 import React from 'react';
+import { Platform ,StyleSheet} from 'react-native';
 import {
   createStackNavigator,
   createBottomTabNavigator,
-  BottomTabBar,
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import TabBarWritingIcon from '../components/TabBarWritingIcon';
-
 import FindMeMainScreen from '../screens/findme/MainScreen';
 import FindMeDetailScreen from '../screens/findme/DetailScreen';
 import FindMeReportScreen from '../screens/findme/ReportScreen';
+import FindMeWriteScreen from '../screens/findme/WriteScreen';
 
-import TrendScreen from '../screens/trend/TrendMainScreen';
-import WritingScreen from '../screens/WritingScreen';
+import TrendMainScreen from '../screens/trend/TrendMainScreen';
+//import WritingScreen from '../screens/WritingScreen';
 import RankingScreen from '../screens/RankingScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 
 import TrendWriteScreen from '../screens/trend/TrendWriteScreen';
+import CameraScreen from '../components/common/CameraScreen';
 
 const FindMeMainStack = createStackNavigator(
   {
     FindMe: FindMeMainScreen,
     FindMeDetail: FindMeDetailScreen,
-  },
-  {
-    navigationOptions: {
-      tabBarVisible: false,
-    }
-  }
-)
-
-const FindMeRootStack = createStackNavigator(
-  {
-    FindMeMain: FindMeMainStack,
-    FindMeWriting: WritingScreen,
     FindMeReport: FindMeReportScreen,
+    FindMeWriting: FindMeWriteScreen,
   },
   {
     mode: 'modal',
@@ -66,29 +55,43 @@ const FindMeRootStack = createStackNavigator(
     }
   }
 )
-
 const TrendStack = createStackNavigator({
-  Trend: TrendScreen,
-  TrendWrite: TrendWriteScreen,
+  Trend: TrendMainScreen,
+  
+  TrendWriting: TrendWriteScreen,
 });
 
 TrendStack.navigationOptions = {
   tabBarLabel: ' ',
   tabBarIcon: ({ focused }) => (
     focused ? <TabBarIcon
-      focused={focused}
-      imageUri={require('../assets/images/icoMenuLike_active.png')}
-      style={{ paddingRight: 20 }}
-      text={'취향저격'}
-    />
-      :
-      <TabBarIcon
-        focused={focused}
-        imageUri={require('../assets/images/icoMenuLike_inactive.png')}
-        text={'취향저격'}
-      />
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuLike_active.png')}
+                text={'취향저격'}
+              />
+              :
+              <TabBarIcon
+                focused={focused}
+                imageUri={require('../assets/images/icoMenuLike_inactive.png')}
+                text={'취향저격'}
+              />
   )
 };
+/*
+const WritingStack = createStackNavigator({
+  Writing: WritingScreen,
+});
+
+WritingStack.navigationOptions = {
+  tabBarLabel: '글쓰기',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      imageUri= {require('../assets/images/icoMenuWrite.png')}
+    />
+  ),
+};*/
+
 
 const RankingStack = createStackNavigator({
   Ranking: RankingScreen,
@@ -99,8 +102,8 @@ RankingStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      imageUri={require('../assets/images/icoMenuRanking.png')}
-      text={'랭킹'}
+      imageUri= {require('../assets/images/drawable-xxxhdpi/ico_menu_shop.png')}
+      text={'골드키샵'}
     />
   ),
 };
@@ -116,7 +119,7 @@ MyPageStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      imageUri={require('../assets/images/icoMenuMy.png')}
+      imageUri= {require('../assets/images/icoMenuMy.png')}
       text={'내페이지'}
     />
   ),
@@ -124,23 +127,26 @@ MyPageStack.navigationOptions = {
 
 
 export default createBottomTabNavigator({
-  findme: FindMeRootStack,
+  FindMeStack,
   TrendStack,
   RankingStack,
   MyPageStack,
 
 }, {
-    tabBarOptions: {
-      style: {
-        height: 70,
-        backgroundColor: 'black',
-      }
+  tabBarOptions: {
+    showLabel: true,
+    showIcon: true,
+    style: {
+      backgroundColor: 'black',
+      height: 61,
     },
+    labelStyle: {
+        fontSize: 9.3,
+        color: 'white',
+        marginBottom : 3,
+    },
+    tabStyle: {}
+  }
+});
 
-    tabBarComponent: props => {
-      return (
-        <BottomTabBar {...props} />
-      )
-    }
-  });
 

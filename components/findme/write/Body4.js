@@ -1,18 +1,35 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import Colors from '../../../constants/Colors'
 import { AntDesign } from '@expo/vector-icons'
+import CameraDialog from '../../common/CameraDialog'
 
 const textPlaceholder = `예) 2019년, FW, SS 등 제품을 찾을 때 유의사항이 있으면 기재해주세요. 디테일한 정보는 제품을 찾는 데 많은 도움이 될 수있어요.`
 
 class Body4 extends Component {
+  state = {
+    image: 'undefined',
+    isDialogVisiable: false,
+  }
+
+  _setImageUri(uri){
+    this.props.onChange('TrendWriteBody2', 'image', uri)
+  }
 
   render() {
-    const { text } = this.props.Body4
+    const { image, isDialogVisiable, text } = this.props.Body4
     
     return (
       <View style={styles.container}>
+        {
+          <CameraDialog 
+          dismissDialog={() => {this.setState({ isDialogVisiable: false });}}
+          pictureSelected={(uri) => {this._setImageUri(uri);this.setState({ image: uri});}}
+          visible={this.state.isDialogVisiable}
+          navigation={this.props.navigation}/>
+        }
+
         <View style={styles.textArea}>
           <Text style={styles.guide}>더 알아야 할 내용이 있나요?</Text>
           <View style={styles.contents}>
@@ -34,7 +51,22 @@ class Body4 extends Component {
           <View style={styles.imageUploadAreaRow}>
             {/* 이미지 썸네일 */}
             <View style={styles.imageUploadButtonArea}>
-              <TouchableOpacity style={styles.imageUploadButton} >
+              <TouchableOpacity style={styles.imageUploadButton} 
+              onPress={() => {this.setState({ isDialogVisiable: true });}}>
+                 {this.state.image === 'undefined' ?
+                <AntDesign style={styles.plusIcon}
+                  name='plus'
+                  size={30}
+                  color={Colors.orange}
+                />
+                :
+                <Image style={styles.imageArea} source={{uri:this.state.image}} />
+                }
+              </TouchableOpacity>
+            </View>
+            <View style={styles.imageUploadButtonArea}>
+              <TouchableOpacity style={styles.imageUploadButton} 
+              onPress={() => {this.setState({ isDialogVisiable: true });}}>
                 <AntDesign style={styles.plusIcon}
                   name='plus'
                   size={30}
@@ -43,7 +75,8 @@ class Body4 extends Component {
               </TouchableOpacity>
             </View>
             <View style={styles.imageUploadButtonArea}>
-              <TouchableOpacity style={styles.imageUploadButton} >
+              <TouchableOpacity style={styles.imageUploadButton} 
+              onPress={() => {this.setState({ isDialogVisiable: true });}}>
                 <AntDesign style={styles.plusIcon}
                   name='plus'
                   size={30}
@@ -52,7 +85,8 @@ class Body4 extends Component {
               </TouchableOpacity>
             </View>
             <View style={styles.imageUploadButtonArea}>
-              <TouchableOpacity style={styles.imageUploadButton} >
+              <TouchableOpacity style={styles.imageUploadButton} 
+              onPress={() => {this.setState({ isDialogVisiable: true });}}>
                 <AntDesign style={styles.plusIcon}
                   name='plus'
                   size={30}
@@ -61,16 +95,8 @@ class Body4 extends Component {
               </TouchableOpacity>
             </View>
             <View style={styles.imageUploadButtonArea}>
-              <TouchableOpacity style={styles.imageUploadButton} >
-                <AntDesign style={styles.plusIcon}
-                  name='plus'
-                  size={30}
-                  color={Colors.orange}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.imageUploadButtonArea}>
-              <TouchableOpacity style={styles.imageUploadButton} >
+              <TouchableOpacity style={styles.imageUploadButton} 
+              onPress={() => {this.setState({ isDialogVisiable: true });}}>
                 <AntDesign style={styles.plusIcon}
                   name='plus'
                   size={30}
@@ -155,5 +181,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 3.84,
     elevation: 5,
-  }
+  },
+  imageArea : {
+    width: '100%',
+    height : '100%',
+    resizeMode: 'contain'
+  },
 })

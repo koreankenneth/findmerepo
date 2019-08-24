@@ -1,60 +1,298 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Image} from 'react-native';
+import { StyleSheet, View, Text, Alert} from 'react-native';
+import { connect } from 'react-redux'
+import { AppLoading } from 'expo'
+import TrendWriteBody1 from '../../components/trend/write/TrendWriteBody1'
+import TrendWriteBody2 from '../../components/trend/write/TrendWriteBody2'
+import TrendWriteBody3 from '../../components/trend/write/TrendWriteBody3'
+import TrendWriteBody4 from '../../components/trend/write/TrendWriteBody4'
+import TrendWriteNav from '../../components/trend/write/TrendWriteNav'
+import TrendWriteFooter from '../../components/trend/write/TrendWriteFooter'
+import TrendWriteHeader from '../../components/trend/write/TrendWriteHeader'
+import TrendWriteIntro from '../../components/trend/write/TrendWriteIntro'
 
-import TrendWriteBox from '../../components/trend/write/TrendWriteBox';
+import { writeTrendDraft } from '../../actions/app'
+import { initTrendDraft } from '../../utils/api'
 
-contentsData = [{
-    image : require('../../assets/images/drawable-xxxhdpi/trend_write_pick_ico.png'),
-    title : '골라줘',
-    contents : '이미 어떤걸 사야할지 생각은 했는데,\n고를수가 없다면?',
-    hint : '골라줄수 있는 최소 이미지 2장이 필요해요!',
-},{
-    image : require('../../assets/images/drawable-xxxhdpi/trend_write_know_ico.png'),
-    title : '알려줘',
-    contents : '어떤 브랜드인지, 어떤 제품인지 잘모르면\n알려줄게요!',
-    hint : '최소 이미지1장이 필요해요!',
-},{
-    image : require('../../assets/images/drawable-xxxhdpi/trend_write_recommand_ico.png'),
-    title : '추천해줘',
-    contents : '가격대는 정했는데 어떤걸 사야할지\n잘 모르겠으면추천해 줄게요.',
-    hint : '',
-}]
 
-export default class TrendWriteScreen extends Component {
+
+
+class TrendWriteScreen extends Component {
+  state = {
+   
+  }
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { 
+      displayType: 'undefined',
+      page: 1,
+      isOnBrandSearch: false,
+      ready: false,
     };
     
-    this.onPressBox = this.onPressBox.bind(this);
+    //this.onPressBox = this.onPressBox.bind(this);
 
   }
 
-  onPressBox = (idx) => {
-    console.log(idx);
+  fadeIn = () => {
+    Animated.timing(
+      this.state.fadeAnim,
+      {
+        toValue: 0,
+        duration: 200,
+      }
+    ).start();
   }
 
+  fadeOut = () => {
+    Animated.timing(
+      this.state.fadeAnim,
+      {
+        toValue: 1,
+        duration: 500,
+      }
+    ).start();
+  }
+  
+  componentDidMount() {
+    const { dispatch } = this.props
+    initTrendDraft()
+      .then((draft) => dispatch(writeTrendDraft(draft)))
+      .then(() => this.setState({ ready: true }))
+  }
+
+  goBack = () => {
+    const currentPage = this.state.page
+    this.setState({ page: currentPage - 1 })
+  }
+
+  goNext = () => {
+    const currentPage = this.state.page
+    validateData(currentPage, this.props.trendDraft)
+      ? this.setState({ page: currentPage + 1 })
+      : Alert.alert('Error', 'Please select all.')
+  }
+
+  goPage = (page) => {
+    const currentPage = this.state.page
+    validateData(currentPage, this.props.trendDraft)
+      ? this.setState({ page: page })
+      : Alert.alert('Error', 'Please select all.')
+  }
+
+  goBrandSearch = () => {
+    this.setState({ isOnBrandSearch: true })
+  }
+
+  onChange = (page, area, value) => {
+    const { dispatch, trendDraft } = this.props
+    const draft = {
+      ...trendDraft,
+      [page]: {
+        ...trendDraft[page],
+        [area]: value,
+      }
+    }
+
+    dispatch(writeTrendDraft(draft))
+    this.setState({ [area]: value })
+  }
+
+  setBrand = (brand) => {
+    this.onChange('TrendWriteBody2', 'brand', brand)
+    this.setState({ isOnBrandSearch: false })
+  }
+
+  setDisplayType = (displayType) => {
+    this.onChange('TrendWriteIntro', 'displayType', displayType)
+    this.setState({ displayType: displayType })
+  }
+  
+  getTitle = () => {
+    return this.props.trendDraft.TrendWriteBody1.title;
+  }
+
+  submit = () => {
+    Alert.alert(
+      'Alert Title',
+      'My Alert Msg',
+      [
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    )
+  }
+
+  close = () => {
+    this.setState({ isOnBrandSearch: false, displayType : 'undefined' })
+    this.props.navigation.navigate(
+      'Trend',
+    )
+  }
 
   render() {
+    const { ready, page, isOnBrandSearch, displayType } = this.state
+    if (ready === false) {
+      return <AppLoading />
+    }
+    
+    let body
+    switch (page) {
+      case 1:
+        body =
+          <TrendWriteBody1
+            onChange={this.onChange}
+            navigation={this.props.navigation}
+          />
+        break
+      case 2:
+        if (isOnBrandSearch) {
+          body = (
+            <BrandSearch
+              setBrand={this.setBrand}
+            />
+          )
+        } else {
+          body = (
+            <TrendWriteBody2
+              onChange={this.onChange}
+              goBrandSearch={this.goBrandSearch}
+              navigation={this.props.navigation}
+            />
+          )
+        }
+        break
+      case 3:
+        body =
+          <TrendWriteBody3
+            onChange={this.onChange}
+            navigation={this.props.navigation}
+          />
+        break
+      case 4:
+        body =
+          <TrendWriteBody4
+            onChange={this.onChange}
+            navigation={this.props.navigation}
+          />
+        break
+      default:
+        body =
+          <TrendWriteBody1
+            onChange={this.onChange}
+            navigation={this.props.navigation}
+          />
+        break
+    }
     return (
-      <View style={styles.container}>
-        <TouchableOpacity 
-          style={styles.iconArea}
-          onPress={() => this.props.navigation.dismiss()}>
-            <Image style={styles.closeIcon} source={require('../../assets/images/drawable-xxxhdpi/close.png')} />
-        </TouchableOpacity>
-        <View style={styles.boxArea}>
-        { contentsData.map((data, index) => (
-                        <TrendWriteBox
-                            style={ styles.box }
-                            data={data}
-                            key={index}
-                            onPressBox={(idx) => {this.onPressBox(idx);}}
-                        />
-                        ))}
-        </View>
+      <View style={styles.background}>
+        <View style={styles.blankSpace} />
+        {
+          displayType === 'undefined'
+            ? (
+
+              <View style={styles.container}>
+                <View style={styles.brandHeader}>
+                  <TrendWriteHeader
+                    page={page}
+                    title={'취향저격 글작성'}
+                    isOnBrandSearch={isOnBrandSearch}
+                    goBack={this.goBack}
+                    close={this.close}
+                  />
+                </View>
+
+                <View style={styles.brandBody}>
+                  <TrendWriteIntro 
+                    setDisplayType={this.setDisplayType}
+                  />
+                </View>
+              </View>
+            )
+            : isOnBrandSearch
+                ? (
+                  <View style={styles.container}>
+                    <View style={styles.brandHeader}>
+                      <TrendWriteHeader
+                        page={page}
+                        title={'브랜드 찾기'}
+                        isOnBrandSearch={isOnBrandSearch}
+                        goBack={this.goBack}
+                        close={this.close}
+                      />
+                    </View>
+
+                    <View style={styles.brandBody}>
+                      {body}
+                    </View>
+                  </View>
+                )
+                : (
+
+                  <View style={styles.container}>
+                    <View style={styles.header}>
+                      <TrendWriteHeader
+                        page={page}
+                        title={displayType}
+                        isOnBrandSearch={isOnBrandSearch}
+                        goBack={this.goBack}
+                        close={this.close}
+                      />
+                    </View>
+
+                    <View style={styles.nav}>
+                      <TrendWriteNav
+                        page={page}
+                        goPage={this.goPage}
+                      />
+                    </View>
+
+                    <View style={styles.body}>
+                      {body}
+                    </View>
+
+                    <View style={styles.footer}>
+                      <TrendWriteFooter
+                        goNext={this.goNext}
+                        isActive={true}
+                        isFinal={page === 4}
+                        submit={this.submit}
+                      />
+                    </View>
+                  </View>
+                )
+        }
       </View>
     );
+  }
+}
+
+
+const validateData = (page, draft) => {
+  const componentName = 'TrendWriteBody' + page
+  if (draft) {
+    const obj = draft[componentName]
+    if (Object.keys(obj).length > 0) {
+      for (var key in obj) {
+        console.log(key)
+        if (obj[key] === 'undefined') return false
+      }
+      return true
+    }
+  }
+
+  return false
+  //return true
+}
+
+function mapStateToProps(state) {
+  return {
+    trendDraft: state.app.trendDraft
   }
 }
 
@@ -65,31 +303,38 @@ TrendWriteScreen.navigationOptions = {
   }
 }
 
+export default connect(mapStateToProps)(TrendWriteScreen)
+
 const styles = StyleSheet.create({
-  container: {
+  background: {
+    flex: 1,
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+  },
+  blankSpace: {
     flex: 1,
   },
-  iconArea : {
-    height : '10%',
-    width : '100%',
-    alignItems : 'flex-end',
+  container: {
+    flex: 19,
+    padding: 20,
+    borderRadius: 20,
+    backgroundColor: '#f8f8f8',
   },
-  closeIcon : {
-    top : '5%',
-    right : '2.7%',
-    width : 20,
-    height : 20,
+  header: {
+    flex: 1,
   },
-  boxArea : {
-    height : '100%',
-    width : '100%',
-    top : '-10%',
-    justifyContent : "center",
+  nav: {
+    flex: 1,
   },
-  box : {
-      width: '90%',
-      height : '22%',
-      margin : 15,
-      justifyContent : "center",
-  }
-});
+  body: {
+    flex: 7,
+  },
+  footer: {
+    flex: 1,
+  },
+  brandHeader: {
+    flex: 1,
+  },
+  brandBody: {
+    flex: 12,
+  },
+})

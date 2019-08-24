@@ -19,12 +19,13 @@ export default function TabBarIcon(props) {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 7,
     paddingTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    marginTop: 10,
+    marginTop: 3,
     color: 'white',
     fontSize: 11,
   },
