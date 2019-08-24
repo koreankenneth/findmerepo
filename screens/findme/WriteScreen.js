@@ -108,7 +108,7 @@ class WriteScreen extends Component {
   close = () => {
     this.setState({ isOnBrandSearch: false })
     this.props.navigation.navigate(
-      'FindMe',
+      'FindMeMain',
     )
   }
 
@@ -272,7 +272,14 @@ const validateData = (page, draft) => {
   }
 
   return false
-  //return true
+}
+
+WriteScreen.navigationOptions = {
+  title: '',
+  headerStyle: {
+    height: 0,
+  }
+
 }
 
 function mapStateToProps(state) {

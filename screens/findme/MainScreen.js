@@ -116,7 +116,7 @@ class FindMeScreen extends Component {
 }
 
 FindMeScreen.navigationOptions = {
-  title: '',
+  title: ' ',
   headerStyle: {
     height: 0,
   }
