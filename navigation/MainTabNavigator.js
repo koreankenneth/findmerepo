@@ -19,19 +19,32 @@ import MyPageScreen from '../screens/MyPageScreen';
 
 import TrendWriteScreen from '../screens/trend/TrendWriteScreen';
 
-const FindMeStack = createStackNavigator(
+const FindMeMainStack = createStackNavigator(
   {
     FindMe: FindMeMainScreen,
     FindMeDetail: FindMeDetailScreen,
-    FindMeReport: FindMeReportScreen,
-    FindMeWriting: WritingScreen,
   },
   {
+    navigationOptions: {
+      tabBarVisible: false,
+    }
+  }
+)
+
+const FindMeRootStack = createStackNavigator(
+  {
+    FindMeMain: FindMeMainStack,
+    FindMeWriting: WritingScreen,
+    FindMeReport: FindMeReportScreen,
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
     navigationOptions: ({ navigation }) => {
       const tabBarLabel = ' '
       const lastLocation = navigation.state.routes.length - 1
       const { routeName } = navigation.state.routes[lastLocation]
-      const tabBarVisible = routeName === 'FindMeDetail' || routeName === 'FindMeReport' ? false : true
+      const tabBarVisible = ['FindMeDetail', 'FindMeReport', 'FindMeWriting'].indexOf(routeName) === -1 ? true : false
       const tabBarIcon = ({ focused }) => (
         focused ? <TabBarIcon
           focused={focused}
@@ -77,30 +90,6 @@ TrendStack.navigationOptions = {
   )
 };
 
-
-const WritingStack = createStackNavigator({
-  Writing: WritingScreen,
-},
-  {
-    navigationOptions: ({ navigation }) => {
-      const tabBarLabel = ' ';
-      const tabBarVisible = false;
-      const tabBarIcon = ({ focused }) => (
-        <TabBarWritingIcon
-          focused={focused}
-          imageUri={require('../assets/images/icoMenuWrite.png')}
-          text={'글쓰기'}
-        />
-      )
-      return {
-        tabBarLabel,
-        tabBarVisible,
-        tabBarIcon,
-      }
-    }
-  }
-)
-
 const RankingStack = createStackNavigator({
   Ranking: RankingScreen,
 });
@@ -135,7 +124,7 @@ MyPageStack.navigationOptions = {
 
 
 export default createBottomTabNavigator({
-  findme: FindMeStack,
+  findme: FindMeRootStack,
   TrendStack,
   RankingStack,
   MyPageStack,

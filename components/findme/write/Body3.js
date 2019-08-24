@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../../constants/Colors'
+import DirectTextInput from '../common/DirectTextInput'
 
 const colorPalletLine1 = [
   Colors.red,
@@ -33,6 +34,7 @@ class Body3 extends Component {
   render() {
     const selectedColor = this.props.Body3.color
     const selectedSize = this.props.Body3.size
+    const index = [...colorPalletLine1, ...colorPalletLine2, 'undefined'].indexOf(selectedColor)
     return (
       <View style={styles.container}>
         <View style={styles.subjectArea}>
@@ -64,6 +66,13 @@ class Body3 extends Component {
                   />
                 )
               }
+            </View>
+            <View style={styles.colorManualInputArea}>
+                  <DirectTextInput
+                    placeholder={'최대 16자로 입력해주세요'}
+                    onPress={(value) => this.props.onChange('Body3', 'color', value)}
+                    labelText={index === -1 ? selectedColor : '텍스트로 컬러 입력'}
+                  />
             </View>
           </View>
         </View>
@@ -128,8 +137,8 @@ const styles = StyleSheet.create({
   container: {
   },
   subjectArea: {
-    marginTop: 30,
-    marginBottom: 100,
+    marginTop: 20,
+    marginBottom: 10,
   },
   title: {
     color: Colors.orange,
@@ -167,6 +176,12 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderRadius: 11,
+  },
+  colorManualInputArea: {
+    marginTop: 10,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
   shadowButton: {
     flexDirection: 'row',

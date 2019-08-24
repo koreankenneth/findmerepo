@@ -5,6 +5,7 @@ import Colors from '../../../constants/Colors'
 import { Feather } from '@expo/vector-icons'
 import { AppLoading } from 'expo'
 import { loadBrands } from '../../../utils/api'
+import DirectTextInput from '../common/DirectTextInput'
 
 class BrandSearch extends Component {
   state = {
@@ -77,42 +78,11 @@ class BrandSearch extends Component {
                 </Text>
                 </View>
                 <View style={styles.brandManualInputArea}>
-                  {
-                    isOnWriting
-                      ?
-                      <View style={styles.brandWritingArea}>
-                        <TextInput
-                          placeholder='최대 16자로 입력해주세요'
-                          placeholderTextColor='#c2c2c2'
-                          style={styles.brandWritingInput}
-                          value={this.state.text}
-                          onChangeText={this.onChangeBrand}
-                          onFocus={this.props.goBrandSearch}
-                        />
-                        <TouchableOpacity
-                          style={styles.brandWritingButton}
-                          onPress={() => this.props.setBrand(manualBrand)}
-                        >
-                          <Text>
-                            입력
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-                      :
-                      <TouchableOpacity
-                        style={styles.brandInputButton}
-                        onPress={() => this.setState({ isOnWriting: true })}
-                      >
-                        <Text>
-                          브랜드 직접 입력
-                        </Text>
-                        <Image
-                          source={require('../../../assets/images/drawable-xxxhdpi/ico_menu_write.png')}
-                          style={styles.brandInputButtonIcon}
-                        />
-                      </TouchableOpacity>
-
-                  }
+                  <DirectTextInput
+                    placeholder={'최대 16자로 입력해주세요'}
+                    onPress={this.props.setBrand}
+                    labelText={'브랜드 직접 입력'}
+                  />
                 </View>
               </View>
               :
@@ -194,44 +164,5 @@ const styles = StyleSheet.create({
     borderColor: '#eaeaea',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  brandWritingArea: {
-    height: 36,
-    width: '75%',
-    borderRadius: 18,
-    borderWidth: 0.5,
-    borderColor: '#979797',
-    backgroundColor: Colors.white,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingLeft: 20,
-    paddingRight: 15,
-  },
-  brandWritingInput: {
-    flex: 8,
-  },
-  brandWritingButton: {
-    flex: 1,
-  },
-  brandInputButton: {
-    height: 36,
-    borderRadius: 18,
-    borderWidth: 0.5,
-    borderColor: '#979797',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingLeft: 20,
-    paddingRight: 15,
-  },
-  brandInputButtonText: {
-
-  },
-  brandInputButtonIcon: {
-    height: 13,
-    width: 13,
-    marginLeft: 5,
-    opacity: 0.4,
   },
 })
