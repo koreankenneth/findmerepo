@@ -19,7 +19,9 @@ export default class DetailScreen extends Component {
   }
 
   goBack = () => {
-    this.props.navigation.goBack()
+    this.props.navigation.navigate(
+      'FindMeMain',
+    )
   }
 
   render() {

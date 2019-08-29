@@ -18,10 +18,6 @@ export default class Header extends React.Component {
               name='share'
               size={21}
             />
-            <Feather style={styles.headerIcons}
-              name='heart'
-              size={21}
-            />
           </View>
         </View>
 

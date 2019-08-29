@@ -18,11 +18,11 @@ import BrandSearch from '../../components/findme/write/BrandSearch';
 
 class WriteScreen extends Component {
   state = {
-    displayType: 'undefined',
-    page: 1,
-    ready: false,
-    isOnBrandSearch: false,
-    isOnFinalConfirm: false,
+    displayType: 'undefined',   // default: undefined
+    page: 1,                    //default: 1
+    ready: false,               //default: false
+    isOnBrandSearch: false,     //default: false
+    isOnFinalConfirm: false,    //default: false
   }
 
   componentDidMount() {
@@ -85,6 +85,7 @@ class WriteScreen extends Component {
 
   submit = () => {
     const { findMeDraft, dispatch } = this.props
+    console.log('findMeDraft=',findMeDraft)
     postFindMe(findMeDraft)
       .then(() => {
         initFindMeDraft()
@@ -107,7 +108,7 @@ class WriteScreen extends Component {
   close = () => {
     this.setState({ isOnBrandSearch: false })
     this.props.navigation.navigate(
-      'FindMe',
+      'FindMeMain',
     )
   }
 
@@ -247,7 +248,7 @@ class WriteScreen extends Component {
         }
         {
           this.state.isOnFinalConfirm
-          && 
+          &&
           <FinalConfirm
             submit={this.submit}
             close={() => this.displayFinalConfirm(false)}
@@ -271,7 +272,14 @@ const validateData = (page, draft) => {
   }
 
   return false
-  //return true
+}
+
+WriteScreen.navigationOptions = {
+  title: '',
+  headerStyle: {
+    height: 0,
+  }
+
 }
 
 function mapStateToProps(state) {
