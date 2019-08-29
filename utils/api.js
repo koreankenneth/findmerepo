@@ -42,6 +42,10 @@ export async function initTrendDraft() {
   return trendDraft
 }
 
+export async function initTrendRecommendDraft() {
+  return trendRecommendDraft
+}
+
 export async function loadBrands() {
   return brands
 }
@@ -178,6 +182,16 @@ const trendDraft = {
     selectedCategories: new Array(),
   },
   TrendWriteBody4: {
+  },
+}
+
+const trendRecommendDraft = {
+  TrendRecommendWriteBody1: {
+    title: 'undefined',
+    contents: 'undefined',
+  },
+  TrendRecommendWriteBody2: {
+    images: ['undefined', 'undefined', 'undefined', 'undefined', 'undefined'],
   },
 }
 

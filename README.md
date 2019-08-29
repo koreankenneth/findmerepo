@@ -5,6 +5,8 @@
 #dialog
 - npm install --save react-native-popup-dialog
 # 카메라
-- expo install expo-camera
+- expo install --save expo-camera
 # isiphonex
-- npm install react-native-is-iphonex
+- npm install --save react-native-is-iphonex
+
+- npm install --save react-native-elements

@@ -1,25 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { Image, View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import Colors from '../../../constants/Colors'
+import { AntDesign } from '@expo/vector-icons'
 
-const genders = {
-  female: {
-    line: 1,
-    value: 'female',
-    text: '여성',
-  },
-  male: {
-    line: 1,
-    value: 'male',
-    text: '남성',
-  },
-  kids: {
-    line: 1,
-    value: 'kids',
-    text: '키즈',
-  },
-}
 
 const categories = {
   top: {
@@ -72,46 +56,30 @@ const categories = {
   },
 }
 
-class TrendWriteBody2 extends Component {
-  state = {
-    gender: 'undefined',
-    category: 'undefined',
-  }
-
+class TrendWriteBody4 extends Component {
+  
   render() {
-    const { gender, category } = this.props.TrendWriteBody2
     
+    const { title, contents } = this.props.TrendWriteBody1   
+    const { selectedCategories } = this.props.TrendWriteBody3
+
     return (
       <View style={styles.container}>
-        <View style={styles.subjectArea}>
-          <Text style={styles.title}>성별 선택</Text>
-          <Text style={styles.guide}>여성제품 찾으세요?</Text>
+        <View style={styles.textArea}>
+          <Text style={styles.guide}>{title}</Text>
           <View style={styles.contents}>
-            <View style={styles.contentsRow}>
-
-              {
-                Object.keys(genders).map((key) => {
-                  const { text, value } = genders[key]
-                  return (
-                    <ShadowButton
-                      text={text}
-                      area={'gender'}
-                      value={value}
-                      selectedValue={gender}
-                      onPress={this.props.onChange}
-                    />
-                  )
-                })
-              }
-            </View>
+            <TextInput
+              style={styles.textinput}
+              multiline={true}
+              value={contents}
+            />
           </View>
         </View>
-
-        <View style={styles.subjectArea}>
-          <Text style={styles.title}>품목 선택</Text>
-          <Text style={styles.guide}>혹시 가방 찾으세요?</Text>
-          <View style={styles.contents}>
-            <View style={styles.contentsRow}>
+        <View style={styles.imageUploadArea}>
+          <View style={styles.imageUploadAreaRow}>
+            <Text style={styles.imageUploadTitle}>선택한 품목</Text>
+          </View>
+          <View style={styles.contentsRow}>
 
               {
                 Object.keys(categories).map((key) => {
@@ -120,54 +88,53 @@ class TrendWriteBody2 extends Component {
                     <ShadowButton
                       image={uri}
                       text={text}
-                      area={'category'}
+                      area={'selectedCategories'}
                       value={value}
-                      selectedValue={category}
-                      onPress={this.props.onChange}
+                      selectedValue={selectedCategories}
                     />
                   )
                 })
               }
             </View>
-          </View>
         </View>
       </View>
     )
   }
 }
 
-function ShadowButton({ image, text, area, value, selectedValue, onPress }) {
-  return (
-    <TouchableOpacity
-      style={value === selectedValue ? [styles.shadowButton, styles.buttonSelected] : styles.shadowButton}
-      onPress={() => onPress('Body2', area, value)}
-    >
+function ShadowButton({ image, text, area, value, selectedValue}) {
+  if(selectedValue.indexOf(value) >= 0){
+    return(<View style={styles.shadowButton}>
       {
         image && <Image source={image} style={styles.buttonIcon} />
       }
       <Text>{text}</Text>
-    </TouchableOpacity>
-  )
+    </View>)
+  }else{
+    return (<View></View>)
+  }
 }
 
 function mapStateToProps(state) {
   return {
+    TrendWriteBody1: state.app.trendDraft.TrendWriteBody1,
     TrendWriteBody2: state.app.trendDraft.TrendWriteBody2,
+    TrendWriteBody3: state.app.trendDraft.TrendWriteBody3,
+    TrendWriteBody4: state.app.trendDraft.TrendWriteBody4,
+
   }
 }
 
-export default connect(mapStateToProps)(TrendWriteBody2)
+export default connect(mapStateToProps)(TrendWriteBody4)
 
 const styles = StyleSheet.create({
   container: {
+    paddingLeft: 10,
+    paddingRight: 10,
   },
-  subjectArea: {
+  textArea: {
+    marginTop: 30,
     marginBottom: 60,
-  },
-  title: {
-    color: Colors.orange,
-    fontSize: 14,
-    marginBottom: 10,
   },
   guide: {
     fontSize: 25,
@@ -175,11 +142,68 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   contents: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  textinput: {
+    width: '100%',
+    height: 110,
+    fontSize: 12,
+    textAlignVertical: 'top',
+    backgroundColor: Colors.white,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingRight: 15,
+    paddingLeft: 15,
+  },
+  
   contentsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+  },
+  imageUploadAreaRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  imageUploadTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginRight: 10,
+  },
+  imageUploadGuide: {
+    fontSize: 12,
+    fontWeight: '200',
+  },
+  imageUploadButtonArea: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  imageUploadButton: {
+    backgroundColor: Colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 55,
+    height: 55,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  imageArea : {
+    width: '100%',
+    height : '100%',
+    resizeMode: 'contain'
+  },
+  shadowButtonHide:{
+    display: 'none',
   },
   shadowButton: {
     flexDirection: 'row',
@@ -204,10 +228,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     marginRight: 10,
     marginBottom: 10,
-  },
-  buttonSelected: {
-    borderWidth: 2,
-    borderColor: Colors.black,
   },
   buttonIcon: {
     width: 25,

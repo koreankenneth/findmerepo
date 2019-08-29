@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import Colors from '../../../constants/Colors'
 
-export default function TrendWriteNav ({ page, goPage }) {
+export default function TrendWriteNav ({ page, displayType, goPage }) {
   return (
     <View style={styles.container}>
     <TouchableOpacity
@@ -23,12 +23,18 @@ export default function TrendWriteNav ({ page, goPage }) {
       >
         <Text style={page === 3 ? styles.buttonTextActive : styles.buttonTextInactive} >03</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={page === 4 ? styles.buttonActive : styles.buttonInactive}
-        onPress={() => goPage(4)}
-      >
-        <Text style={page === 4 ? styles.buttonTextActive : styles.buttonTextInactive} >04</Text>
-      </TouchableOpacity>
+      {
+        displayType === "알려줘"?
+          <TouchableOpacity
+          style={page === 4 ? styles.buttonActive : styles.buttonInactive}
+          onPress={() => goPage(4)}
+          > 
+            <Text style={page === 4 ? styles.buttonTextActive : styles.buttonTextInactive} >04</Text>
+          </TouchableOpacity>
+          :
+          <View></View>
+      }
+      
     </View>
 
   )

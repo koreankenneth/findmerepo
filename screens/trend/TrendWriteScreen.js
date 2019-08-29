@@ -6,6 +6,12 @@ import TrendWriteBody1 from '../../components/trend/write/TrendWriteBody1'
 import TrendWriteBody2 from '../../components/trend/write/TrendWriteBody2'
 import TrendWriteBody3 from '../../components/trend/write/TrendWriteBody3'
 import TrendWriteBody4 from '../../components/trend/write/TrendWriteBody4'
+
+import TrendRecommendWriteBody1 from '../../components/trend/write_recommend/TrendRecommendWriteBody1'
+import TrendRecommendWriteBody2 from '../../components/trend/write_recommend/TrendRecommendWriteBody2'
+import TrendRecommendWriteBody3 from '../../components/trend/write_recommend/TrendRecommendWriteBody3'
+import TrendRecommendWriteBody4 from '../../components/trend/write_recommend/TrendRecommendWriteBody4'
+
 import TrendWriteNav from '../../components/trend/write/TrendWriteNav'
 import TrendWriteFooter from '../../components/trend/write/TrendWriteFooter'
 import TrendWriteHeader from '../../components/trend/write/TrendWriteHeader'
@@ -14,6 +20,9 @@ import TrendWriteIntro from '../../components/trend/write/TrendWriteIntro'
 import { writeTrendDraft } from '../../actions/app'
 import { initTrendDraft } from '../../utils/api'
 
+import { writeTrendRecommendDraft } from '../../actions/app'
+import { initTrendRecommendDraft } from '../../utils/api'
+import { USER_FACING_NOTIFICATIONS } from 'expo-permissions';
 
 
 
@@ -59,6 +68,10 @@ class TrendWriteScreen extends Component {
     initTrendDraft()
       .then((draft) => dispatch(writeTrendDraft(draft)))
       .then(() => this.setState({ ready: true }))
+
+    initTrendRecommendDraft()
+      .then((draft) => dispatch(writeTrendRecommendDraft(draft)))
+      .then(() => this.setState({ ready: true }))
   }
 
   goBack = () => {
@@ -68,16 +81,33 @@ class TrendWriteScreen extends Component {
 
   goNext = () => {
     const currentPage = this.state.page
-    validateData(currentPage, this.props.trendDraft)
+    if(this.state.displayType === "골라줘"){
+      //
+    }else if(this.state.displayType === "알려줘"){
+      validateData(currentPage, this.props.trendDraft, this.state.displayType)
       ? this.setState({ page: currentPage + 1 })
       : Alert.alert('Error', 'Please select all.')
+    }else if(this.state.displayType === "추천해줘"){
+      validateData(currentPage, this.props.trendRecommendDraft, this.state.displayType)
+      ? this.setState({ page: currentPage + 1 })
+      : Alert.alert('Error', 'Please select all.')
+    }
+    
   }
 
   goPage = (page) => {
     const currentPage = this.state.page
-    validateData(currentPage, this.props.trendDraft)
-      ? this.setState({ page: page })
+    if(this.state.displayType === "골라줘"){
+      //
+    }else if(this.state.displayType === "알려줘"){
+      validateData(currentPage, this.props.trendDraft, this.state.displayType)
+      ? this.setState({ page: currentPage + 1 })
       : Alert.alert('Error', 'Please select all.')
+    }else if(this.state.displayType === "추천해줘"){
+      validateData(currentPage, this.props.trendRecommendDraft, this.state.displayType)
+      ? this.setState({ page: currentPage + 1 })
+      : Alert.alert('Error', 'Please select all.')
+    }
   }
 
   goBrandSearch = () => {
@@ -85,16 +115,30 @@ class TrendWriteScreen extends Component {
   }
 
   onChange = (page, area, value) => {
-    const { dispatch, trendDraft } = this.props
-    const draft = {
-      ...trendDraft,
-      [page]: {
-        ...trendDraft[page],
-        [area]: value,
+    if(this.state.displayType === "골라줘"){
+      
+    }else if(this.state.displayType === "알려줘"){
+      const { dispatch, trendDraft } = this.props
+      const draft = {
+        ...trendDraft,
+        [page]: {
+          ...trendDraft[page],
+          [area]: value,
+        }
       }
+      dispatch(writeTrendDraft(draft))
+    }else if(this.state.displayType === "추천해줘"){
+      const { dispatch, trendRecommendDraft } = this.props
+      console.log(trendRecommendDraft)
+      const draft = {
+        ...trendRecommendDraft,
+        [page]: {
+          ...trendRecommendDraft[page],
+          [area]: value,
+        }
+      }
+      dispatch(writeTrendRecommendDraft(draft))
     }
-
-    dispatch(writeTrendDraft(draft))
     this.setState({ [area]: value })
   }
 
@@ -109,7 +153,13 @@ class TrendWriteScreen extends Component {
   }
   
   getTitle = () => {
-    return this.props.trendDraft.TrendWriteBody1.title;
+    if(this.state.displayType === "골라줘"){
+      return ""////
+    }else if(this.state.displayType === "알려줘"){
+      this.props.trendDraft.TrendWriteBody1.title;
+    }else if(this.state.displayType === "추천해줘"){
+      this.props.trendRecommendDraft.TrendRecommendWriteBody1.title;
+    }
   }
 
   submit = () => {
@@ -144,49 +194,106 @@ class TrendWriteScreen extends Component {
     let body
     switch (page) {
       case 1:
-        body =
+        if(displayType === "골라줘"){
+
+        }else if (displayType === "알려줘"){
+          body =
           <TrendWriteBody1
             onChange={this.onChange}
             navigation={this.props.navigation}
           />
+        }else if (displayType === "추천해줘"){
+          body =
+          <TrendRecommendWriteBody1
+            onChange={this.onChange}
+            navigation={this.props.navigation}
+          />
+        }
+        
         break
       case 2:
-        if (isOnBrandSearch) {
-          body = (
-            <BrandSearch
-              setBrand={this.setBrand}
-            />
-          )
-        } else {
+        if(displayType === "골라줘"){
+          if (isOnBrandSearch) {
+            body = (
+              <BrandSearch
+                setBrand={this.setBrand}
+              />
+            )
+          } else {
+            body = (
+              <TrendWriteBody2
+                onChange={this.onChange}
+                goBrandSearch={this.goBrandSearch}
+                navigation={this.props.navigation}
+              />
+            )
+          }
+        }else if (displayType === "알려줘"){
           body = (
             <TrendWriteBody2
               onChange={this.onChange}
-              goBrandSearch={this.goBrandSearch}
+              navigation={this.props.navigation}
+            />
+          )
+        }else if (displayType === "추천해줘"){
+          body = (
+            <TrendRecommendWriteBody2
+              onChange={this.onChange}
               navigation={this.props.navigation}
             />
           )
         }
         break
       case 3:
-        body =
-          <TrendWriteBody3
-            onChange={this.onChange}
-            navigation={this.props.navigation}
-          />
+          if(displayType === "골라줘"){
+
+          }else if (displayType === "알려줘"){
+            body =
+            <TrendWriteBody3
+              onChange={this.onChange}
+              navigation={this.props.navigation}
+            />
+          }else if (displayType === "추천해줘"){
+            body =
+            <TrendRecommendWriteBody3
+              onChange={this.onChange}
+              navigation={this.props.navigation}
+            />
+          }
         break
       case 4:
-        body =
-          <TrendWriteBody4
-            onChange={this.onChange}
-            navigation={this.props.navigation}
-          />
+          if(displayType === "골라줘"){
+
+          }else if (displayType === "알려줘"){
+            body =
+            <TrendWriteBody4
+              onChange={this.onChange}
+              navigation={this.props.navigation}
+            />
+          }else if (displayType === "추천해줘"){
+            body =
+            <TrendRecommendWriteBody4
+              onChange={this.onChange}
+              navigation={this.props.navigation}
+            />
+          }
         break
       default:
-        body =
-          <TrendWriteBody1
-            onChange={this.onChange}
-            navigation={this.props.navigation}
-          />
+          if(displayType === "골라줘"){
+
+          }else if (displayType === "알려줘"){
+            body =
+            <TrendWriteBody1
+              onChange={this.onChange}
+              navigation={this.props.navigation}
+            />
+          }else if (displayType === "추천해줘"){
+            body =
+            <TrendRecommendWriteBody1
+              onChange={this.onChange}
+              navigation={this.props.navigation}
+            />
+          }
         break
     }
     return (
@@ -248,6 +355,7 @@ class TrendWriteScreen extends Component {
                     <View style={styles.nav}>
                       <TrendWriteNav
                         page={page}
+                        displayType={displayType}
                         goPage={this.goPage}
                       />
                     </View>
@@ -260,7 +368,9 @@ class TrendWriteScreen extends Component {
                       <TrendWriteFooter
                         goNext={this.goNext}
                         isActive={true}
-                        isFinal={page === 4}
+                        isFinal={ (displayType === "골라줘" && page === 4) ||
+                                  (displayType === "알려줘" && page === 4) || 
+                                  (displayType === "추천해줘" && page === 3)}
                         submit={this.submit}
                       />
                     </View>
@@ -273,10 +383,19 @@ class TrendWriteScreen extends Component {
 }
 
 
-const validateData = (page, draft) => {
-  const componentName = 'TrendWriteBody' + page
+const validateData = (page, draft, displayType) => {
+  if(displayType === "골라줘"){
+    temp = 'TrendWriteBody' + page
+  }else if(displayType === "알려줘"){
+    temp = 'TrendWriteBody' + page
+  }else if(displayType === "추천해줘"){
+    temp = 'TrendRecommendWriteBody' + page
+  }
+
+  const componentName = temp
   if (draft) {
     const obj = draft[componentName]
+    console.log(obj)
     if (Object.keys(obj).length > 0) {
       for (var key in obj) {
         console.log(key)
@@ -292,7 +411,9 @@ const validateData = (page, draft) => {
 
 function mapStateToProps(state) {
   return {
-    trendDraft: state.app.trendDraft
+    trendDraft: state.app.trendDraft,
+    trendRecommendDraft: state.app.trendRecommendDraft,
+  
   }
 }
 

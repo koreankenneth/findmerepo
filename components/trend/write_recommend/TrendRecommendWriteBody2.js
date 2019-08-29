@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Colors from '../../../constants/Colors'
-import { AntDesign } from '@expo/vector-icons'
 import CameraDialog from '../../common/CameraDialog'
 
-const textPlaceholder = `예) 2019년, FW, SS 등 제품을 찾을 때 유의사항이 있으면 기재해주세요. 디테일한 정보는 제품을 찾는 데 많은 도움이 될 수있어요.`
+import { AntDesign } from '@expo/vector-icons'
 
-class Body4 extends Component {
+class TrendRecommendWriteBody2 extends Component {
+  constructor(props) {
+    super(props);
+    
+  }
+
   state = {
     images: ['undefined', 'undefined', 'undefined', 'undefined', 'undefined'],
     curIdx : 0,
@@ -17,14 +21,15 @@ class Body4 extends Component {
   _setImageUri(uri){
     _images = this.state.images;
     _images[this.state.curIdx] = uri;
-    this.props.onChange('TrendWriteBody2', 'images', _images);
+    this.props.onChange('TrendRecommendWriteBody2', 'images', _images);
     this.setState({ images: _images});
   }
 
   render() {
-    const { curIdx, images, isDialogVisiable, text } = this.props.Body4
-    
+    const { curIdx, images, isDialogVisiable, text } = this.props.TrendRecommendWriteBody2
+
     return (
+    
       <View style={styles.container}>
         {
           <CameraDialog 
@@ -33,25 +38,13 @@ class Body4 extends Component {
           visible={this.state.isDialogVisiable}
           navigation={this.props.navigation}/>
         }
+        
+          
+        <View style={styles.subjectArea}>
+          <Text style={styles.guide}>추천받고 싶은 아이템 이미지가 있나요?
+          올려주시면 추천하는데 많은 도움이 돼요!</Text>
 
-        <View style={styles.textArea}>
-          <Text style={styles.guide}>더 알아야 할 내용이 있나요?</Text>
-          <View style={styles.contents}>
-            <TextInput
-              style={styles.textInput}
-              multiline={true}
-              placeholder={textPlaceholder}
-              placeholderTextColor="#c2c2c2"
-              onChangeText={(text) => this.props.onChange('Body4', 'text', text)}
-              value={text === 'undefined' ? '' : text}
-            />
-          </View>
-        </View>
-        <View style={styles.imageUploadArea}>
-          <View style={styles.imageUploadAreaRow}>
-            <Text style={styles.imageUploadTitle}>이미지 등록</Text>
-            <Text style={styles.imageUploadGuide}>최소 1장의 이미지가 필요해요</Text>
-          </View>
+          <View style={styles.imageUploadArea}>
           <View style={styles.imageUploadAreaRow}>
             {/* 이미지 썸네일 */}
             <View style={styles.imageUploadButtonArea}>
@@ -127,47 +120,79 @@ class Body4 extends Component {
           </View>
         </View>
       </View>
+      </View>
     )
   }
 }
 
+
 function mapStateToProps(state) {
   return {
-    Body4: state.app.findMeDraft.Body4,
+    TrendRecommendWriteBody2: state.app.trendRecommendDraft.TrendRecommendWriteBody2,
   }
 }
 
-export default connect(mapStateToProps)(Body4)
+export default connect(mapStateToProps)(TrendRecommendWriteBody2)
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 10,
-    paddingRight: 10,
   },
-  textArea: {
-    marginTop: 30,
-    marginBottom: 40,
+  subjectArea: {
+    marginTop : 30,
+    marginBottom: 15,
+  },
+  title: {
+    color: Colors.orange,
+    fontSize: 14,
+    marginBottom: 10,
   },
   guide: {
-    fontSize: 25,
+    fontSize: 18,
     fontWeight: '200',
-    marginBottom: 40,
+    marginBottom: 20,
+    marginLeft:20,
+    marginRight:20,
+
   },
   contents: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems : 'center',
+    alignSelf : 'center',
+    justifyContent : 'center',
+    marginTop : 40,
+    borderRadius : 13,
+    width : 153,
+    height : 153,
+    backgroundColor : '#ffffff',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-  textInput: {
+  iconArea :{
     width: '100%',
-    height: 200,
-    fontSize: 14,
-    backgroundColor: Colors.white,
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingRight: 15,
-    paddingLeft: 15,
+    height : '100%',
+    justifyContent: 'center',
+  }, 
+  imageArea : {
+    borderRadius : 13,
+    width: '100%',
+    height : '100%',
+    resizeMode: 'contain'
   },
-  imageUploadAreaRow: {
+  icon : {
+      alignSelf : 'center',
+      width : 24,
+      height : 24,
+  },
+  iconText:{
+    fontSize : 13,
+    marginTop : 5,
+    alignSelf : 'center',
+  },imageUploadAreaRow: {
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -207,4 +232,5 @@ const styles = StyleSheet.create({
     height : '100%',
     resizeMode: 'contain'
   },
+
 })

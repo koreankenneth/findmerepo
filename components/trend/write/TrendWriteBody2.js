@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Colors from '../../../constants/Colors'
 import CameraDialog from '../../common/CameraDialog'
 
+
 class TrendWriteBody2 extends Component {
   constructor(props) {
     super(props);
