@@ -16,11 +16,11 @@ export default function Comment({ reply }) {
         </View>
         <View style={styles.middleArea}>
           <Text style={styles.name}>
-            {reply.writer.name}
+            {reply.writer.nickName}
           </Text>
           <View style={styles.gradeContainer}>
             <Text style={styles.gradeText}>
-              Bronze
+              {reply.type}
             </Text>
           </View>
           <View style={styles.roundLabelContainer}>
@@ -86,13 +86,84 @@ export default function Comment({ reply }) {
         <View style={styles.rightArea}>
         </View>
       </View>
+      {/* 대댓글 영역 */}
+      {
+        reply.replies ? reply.replies.map((subReply) => (
+          <View style={styles.replyContainer}>
+            <View style={styles.profile}>
+              <View style={styles.leftArea}>
+
+                <Image
+                  style={styles.photo}
+                  source={{ url: 'https://pbs.twimg.com/profile_images/716487122224439296/HWPluyjs_400x400.jpg' }}
+                />
+              </View>
+              <View style={styles.middleArea}>
+                <Text style={styles.name}>
+                  {subReply.writer.nickName}
+                </Text>
+                <View style={styles.gradeContainer}>
+                  <Text style={styles.gradeText}>
+                    {subReply.type}
+                  </Text>
+                </View>
+                <View style={styles.roundLabelContainer}>
+                  <Text style={styles.roundLabelText}>
+                    랭킹 1,201
+                </Text>
+                </View>
+                <View style={styles.roundLabelContainer}>
+                  <Text style={styles.roundLabelText}>
+                    신뢰 80%
+                </Text>
+                </View>
+              </View>
+              <View style={styles.rightArea}>
+                <View style={styles.moreActionButtonContainer}>
+                  <TouchableOpacity>
+                    <Feather style={styles.profileIcons}
+                      name='more-vertical'
+                      size={17.3}
+                      color='#424242'
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.body}>
+              <View style={styles.leftArea}>
+              </View>
+              <View style={styles.middleArea}>
+                <Text style={styles.content}>
+                  {subReply.content}
+                </Text>
+              </View>
+              <View style={styles.rightArea}>
+              </View>
+            </View>
+
+
+            <View style={styles.reaction}>
+              <View style={styles.leftArea}>
+              </View>
+              <View style={styles.middleArea}>
+                <Text style={styles.timestamp}>
+                  {getTimeDiff(subReply.creationDateTime).toString()} 전
+                </Text>
+              </View>
+              <View style={styles.rightArea}>
+              </View>
+            </View>
+          </View>
+        )) : null
+      }
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 148,
     padding: 15,
     borderColor: '#c8c8c8',
     borderBottomWidth: 0.5,
@@ -215,5 +286,12 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     marginRight: 4,
+  },
+  replyContainer: {
+    borderColor: '#c8c8c8',
+    borderTopWidth: 0.5,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingLeft: 40,
   },
 })
