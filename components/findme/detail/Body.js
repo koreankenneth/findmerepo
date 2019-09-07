@@ -6,7 +6,7 @@ import CountDownBar from '../common/CountDownBar'
 import { getTimeDiff, getPostStatus } from '../../../utils/helper'
 
 export default function Body({ postDetail }) {
-
+console.log(postDetail.id)
   return (
     <View style={styles.container}>
 
@@ -69,9 +69,9 @@ export default function Body({ postDetail }) {
             <Text style={styles.itemName}>{postDetail.title}</Text>
             {postDetail.exposureType !== 'PUBLIC' && <Image source={require('../../../assets/images/drawable-xxxhdpi/ico_lock.png')} style={styles.secretIcon} />}
           </View>
-            <CountDownBar 
-              postStatus={getPostStatus(postDetail)}
-            />
+          <CountDownBar
+            postStatus={getPostStatus(postDetail)}
+          />
         </View>
         <View style={styles.itemDetail}>
           <View style={styles.itemDetailRow}>
@@ -110,8 +110,8 @@ export default function Body({ postDetail }) {
               color='#c0c0c0'
             />
             <Text style={styles.founderNum}>
-              5
-              </Text>
+              {postDetail.findmeTooCount}
+            </Text>
             <Text style={styles.founderText}>
               명이 이 상품을 찾았어요!
               </Text>
